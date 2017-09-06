@@ -1,8 +1,9 @@
 
 var http     = require('http'),
 	express  = require('express'),
-	mysql    = require('mysql')
+	mysql    = require('mysql'),
 	parser   = require('body-parser');
+
 
 // Database Connection
 /*var connection = mysql.createConnection({
@@ -20,14 +21,26 @@ try {
 
 
     // importar
-    var express = require('express');
-     var exphbs  = require('express-handlebars');
+var express = require('express');
+var exphbs  = require('express-handlebars');
+//var formidable=require('formidable');
+//var formidable = require('express-formidable');
+var formidable = require('formidable'),
+    http = require('http'),
+    util = require('util'),
+    fs   = require('fs-extra');
+
 	//var php = require("php"); 
     // instanciar
-    var app = express();
+var app = express();
+
+
+        
 app.use(parser.json());
 app.use(parser.urlencoded({ extended: true }));
-	app.use(express.static('public'));
+app.use(express.static('public'));
+//app.use(formidable());
+
 app.engine( 'exphbs', exphbs( { 
   extname: 'exphbs', 
   defaultLayout: 'plantilla', 
@@ -107,10 +120,6 @@ app.get('/crearCuento', function (req,res) {
   		
 });
 
-app.post('/subir', function (req,res) {
-	res.render('partials/subir.php');
-  		
-});
 
 app.get('/delete/:id', function (req,res) {
 	var id = req.params.id;
@@ -137,5 +146,58 @@ app.get('/crear', function (req,res) {
 res.render('partials/crear');
 });
 
+app.post('/subir', (req, res) => {
+  req.fields; // contains non-file fields 
+  req.files; // contains files 
+    /*var form = new formidable.IncomingForm();
+    
+    form.on('fileBegin', function(fields, files){
+        files.path = "/images/"+files.name;
+    });	
+    
+    form.parse(req, function(err, fields, files) {
+      res.writeHead(200, {'content-type': 'text/plain'});
+      res.write('received upload:\n\n');
+      res.end(util.inspect({fields: fields, files: files}));
+    });*/
+    /*var entrada=new formidable.IncomingForm();
+	entrada.uploadDir='images';
+    entrada.on('fileBegin', function(fields, files){
+        files.path = "./public/images/"+files.name;
+    });	
+    entrada.on('end', function(){
+		res.write('received upload:\n\n');
+    });	*/
+    
+    
+    var form = new formidable.IncomingForm();
+ 
+ // parse a file upload
+    form.parse(req, function(err, fields, files) {
+      res.writeHead(200, {'content-type': 'text/plain'});
+      res.write('Upload received :\n');
+      res.end(util.inspect({fields: fields, files: files}));
+    });
+    form.on('end', function(fields, files) {
+        /* Temporary location of our uploaded file */
+        var temp_path = this.openedFiles[0].path;
+        /* The file name of the uploaded file */
+        var file_name = this.openedFiles[0].name;
+        /* Location where we want to copy the uploaded file */
+        var new_location = 'images/';
+        fs.copy(temp_path, new_location + file_name, function(err) {  
+            if (err) {
+                console.error(err);
+            } else {
+                console.log("success!")
+            }
+        });
+    });
+    
+    
+});
+
+
     // escuchar
     app.listen(8000);
+

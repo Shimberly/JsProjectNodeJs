@@ -134,11 +134,11 @@
 
                     </div>
                     <div class="col-md-4 col-sm-4">
-                        <form enctype="multipart/form-data" class="formularioI">
+                        <form enctype="multipart/form-data" method="post" action="/subir" class="formularioI">
                             <input name="archivo" type="file" id="imagen" />
                             <br />
                             <br />
-                            <input type="button" class="subirImg" value="Subir imagen" />
+                            <input type="submit" value="Subir imagen" />
                             <br />
                         </form>
                         <!--div para visualizar mensajes-->
@@ -171,7 +171,7 @@
 
                     </div>
                     <div class="col-md-4 col-sm-4">
-                        <form enctype="multipart/form-data" class="formularioA">
+                        <form enctype="multipart/form-data" class="formularioA" method="post">
                             <input name="archivo" type="file" id="audio" />
                             <br />
                             <br />
