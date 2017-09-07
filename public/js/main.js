@@ -423,7 +423,7 @@ $('.subirAudio').click(function () {
     var message = "";
     //hacemos la petición ajax  
     $.ajax({
-        url: 'subir.php',
+        url: '/subir',
         type: 'POST',
         // Form data
         //datos del formulario
@@ -442,7 +442,7 @@ $('.subirAudio').click(function () {
             message = $("<span\>El audio ha subido correctamente.</span>");
             showMessageA(message);
             if (isImage(fileExtension)) {
-                $(".fondoAudio").html("<audio id='draggableAudio' controls><source src='../img/cuentos/" + data + "' type='audio/mp3'></audio>");
+                $(".fondoAudio").html("<audio id='draggableAudio' controls><source src='images/" + data + "' type='audio/mp3'></audio>");
                 $("#draggableAudio").draggable({
                     revert: true
                 });
@@ -465,7 +465,7 @@ $('.subirAudioP').click(function () {
     var message = "";
     //hacemos la petición ajax  
     $.ajax({
-        url: 'subir.php',
+        url: '/subir',
         type: 'POST',
         // Form data
         //datos del formulario
@@ -484,7 +484,7 @@ $('.subirAudioP').click(function () {
             message = $("<span\>El audio ha subido correctamente.</span>");
             showMessageP(message);
             if (isImage(fileExtension)) {
-                $(".fondoAudioP").append("<audio controls><source src='../img/cuentos/" + data + "' type='audio/mp3'></audio>");
+                $(".fondoAudioP").append("<audio controls><source src='images/" + data + "' type='audio/mp3'></audio>");
                 console.log(data);
                 /*<audio controls>
                               <source src="../img/cuentos/000938162_prev.mp3" type="audio/mp3">
@@ -508,7 +508,7 @@ $('.subirImgP').click(function () {
     var message = "";
     //hacemos la petición ajax  
     $.ajax({
-        url: 'subir.php',
+        url: '/subir',
         type: 'POST',
         // Form data
         //datos del formulario
@@ -527,7 +527,7 @@ $('.subirImgP').click(function () {
             // message = $("<span>La imagen ha subido correctamente.</span>");
             //showMessageE(message);
             if (isImage(fileExtension)) {
-                $(".fondoP1").html("<img id='img1' class='ui-widget-content' src='../img/cuentos/" + data + "' />");
+                $(".fondoP1").html("<img id='img1' class='ui-widget-content' src='images/" + data + "' />");
 
             }
         },
@@ -546,7 +546,7 @@ $('.subirImgP2').click(function () {
     var message = "";
     //hacemos la petición ajax  
     $.ajax({
-        url: 'subir.php',
+        url: '/subir',
         type: 'POST',
         // Form data
         //datos del formulario
@@ -565,7 +565,7 @@ $('.subirImgP2').click(function () {
             // message = $("<span>La imagen ha subido correctamente.</span>");
             //showMessageE(message);
             if (isImage(fileExtension)) {
-                $(".fondoP2").html("<img id='img2' class='ui-widget-content' src='../img/cuentos/" + data + "' />");
+                $(".fondoP2").html("<img id='img2' class='ui-widget-content' src='images/" + data + "' />");
 
             }
         },
