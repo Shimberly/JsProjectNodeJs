@@ -173,18 +173,19 @@ app.post('/subir', (req, res) => {
     var form = new formidable.IncomingForm();
  
  // parse a file upload
+    
     form.parse(req, function(err, fields, files) {
       res.writeHead(200, {'content-type': 'text/plain'});
-      res.write('Upload received :\n');
-      res.end(util.inspect({fields: fields, files: files}));
+      
     });
+    
     form.on('end', function(fields, files) {
         /* Temporary location of our uploaded file */
         var temp_path = this.openedFiles[0].path;
         /* The file name of the uploaded file */
         var file_name = this.openedFiles[0].name;
         /* Location where we want to copy the uploaded file */
-        var new_location = 'images/';
+        var new_location = 'public/images/';
         fs.copy(temp_path, new_location + file_name, function(err) {  
             if (err) {
                 console.error(err);
@@ -192,12 +193,26 @@ app.post('/subir', (req, res) => {
                 console.log("success!")
             }
         });
+        res.end(file_name);
     });
     
-    
+/*
+  fs.readdir('public/images/',function (error,archivos){
+	  var fotos='';
+	  for(var x=0;x<archivos.length;x++) {
+          console.log(archivos[x]);
+		  fotos += '<img src="images/'+archivos[x]+'"><br>';
+	  }
+	  //res.writeHead(200, {'Content-Type': 'text/html'});
+	  res.write('<!doctype html><html><head></h                                                                                        ,mead><body>'+
+	  fotos+
+	  '<a href="index.html">Retornar</a></body></html>');		
+	  res.end();	  
+  });	
+*/
 });
 
-
+console.log("Servidor iniciado");
     // escuchar
     app.listen(8000);
 

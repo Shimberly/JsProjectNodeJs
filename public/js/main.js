@@ -399,7 +399,7 @@ $('.subirImg').click(function () {
             showMessageE(message);
             if (isImage(fileExtension)) {
 		alert(data);
-                $(".fondoEscenas").html("<img id='draggable' class='ui-widget-content' src='images/cuentos/" + data + "' />");
+                $(".fondoEscenas").html("<img id='draggable' class='ui-widget-content' src='images/" + data + "' />");
                 $("#draggable").draggable({
                     revert: true
                 });
