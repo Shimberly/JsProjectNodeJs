@@ -423,7 +423,7 @@ $('.subirAudio').click(function () {
     var message = "";
     //hacemos la petición ajax  
     $.ajax({
-        url: 'subir.php',
+        url: '/subir',
         type: 'POST',
         // Form data
         //datos del formulario
@@ -442,7 +442,7 @@ $('.subirAudio').click(function () {
             message = $("<span\>El audio ha subido correctamente.</span>");
             showMessageA(message);
             if (isImage(fileExtension)) {
-                $(".fondoAudio").html("<audio id='draggableAudio' controls><source src='../img/cuentos/" + data + "' type='audio/mp3'></audio>");
+                $(".fondoAudio").html("<audio id='draggableAudio' controls><source src='images/" + data + "' type='audio/mp3'></audio>");
                 $("#draggableAudio").draggable({
                     revert: true
                 });
@@ -465,7 +465,7 @@ $('.subirAudioP').click(function () {
     var message = "";
     //hacemos la petición ajax  
     $.ajax({
-        url: 'subir.php',
+        url: '/subir',
         type: 'POST',
         // Form data
         //datos del formulario
@@ -484,7 +484,7 @@ $('.subirAudioP').click(function () {
             message = $("<span\>El audio ha subido correctamente.</span>");
             showMessageP(message);
             if (isImage(fileExtension)) {
-                $(".fondoAudioP").append("<audio controls><source src='../img/cuentos/" + data + "' type='audio/mp3'></audio>");
+                $(".fondoAudioP").append("<audio controls><source src='images/" + data + "' type='audio/mp3'></audio>");
                 console.log(data);
                 /*<audio controls>
                               <source src="../img/cuentos/000938162_prev.mp3" type="audio/mp3">
@@ -508,7 +508,7 @@ $('.subirImgP').click(function () {
     var message = "";
     //hacemos la petición ajax  
     $.ajax({
-        url: 'subir.php',
+        url: '/subir',
         type: 'POST',
         // Form data
         //datos del formulario
@@ -527,7 +527,7 @@ $('.subirImgP').click(function () {
             // message = $("<span>La imagen ha subido correctamente.</span>");
             //showMessageE(message);
             if (isImage(fileExtension)) {
-                $(".fondoP1").html("<img id='img1' class='ui-widget-content' src='../img/cuentos/" + data + "' />");
+                $(".fondoP1").html("<img id='img1' class='ui-widget-content' src='images/" + data + "' />");
 
             }
         },
@@ -546,7 +546,7 @@ $('.subirImgP2').click(function () {
     var message = "";
     //hacemos la petición ajax  
     $.ajax({
-        url: 'subir.php',
+        url: '/subir',
         type: 'POST',
         // Form data
         //datos del formulario
@@ -565,7 +565,7 @@ $('.subirImgP2').click(function () {
             // message = $("<span>La imagen ha subido correctamente.</span>");
             //showMessageE(message);
             if (isImage(fileExtension)) {
-                $(".fondoP2").html("<img id='img2' class='ui-widget-content' src='../img/cuentos/" + data + "' />");
+                $(".fondoP2").html("<img id='img2' class='ui-widget-content' src='images/" + data + "' />");
 
             }
         },
@@ -644,38 +644,101 @@ function sliderDrop() {
 
 /* LISTAR CUENTOS */
 function leerCuento() {
-    var userArray = [];
-    userArray = leer();
-    alert("Disfruta de todos los cuentos!" + userArray)
-    $.each(userArray[0].cuentos, function (index, elem) {
+     var datos="";
+     $.ajax({
+        url: '/listar',
+        type: 'GET',
+       
+        cache: false,
+        contentType: false,
+        processData: false,
+        
+        success: function (data) {
+            
+            console.log(data);
+            datos=data;
+        },
+        //si ha ocurrido un error
+        error: function () {
+            console.log("error");
+           
+        }
+    });
+    
+    
+    
+    alert("Disfruta de todos los cuentos!" + datos);
+   
+    //<img id='imghome' src='" + elem.pagina[0].imagen + "' alt=''>\
+    $.each(datos, function (index, elem) {
+        var img;
+        var datosidcuento=elem.idcuento;
+     
+        $.ajax({
+            url: '/listarImg',
+            type: 'POST',
+            data: elem,
+            cache: false,
+          
+            success: function (data) {
 
-        $("#ListaCuento").append("<div class='col-md-4 portfolio-item'>\
+                console.log(data);
+                img=data[0].imagen;
+                 $("#ListaCuento").append("<div class='col-md-4 portfolio-item'>\
                 <div id='idh4'>\
-                        <button id='btnLista' onclick='enviar(this)'>\
-                        <img id='imghome' src='" + elem.pagina[0].imagen + "' alt=''>\
+                        <button id='btnLista' onclick='enviar("+ elem.idcuento +")'>\
                         <h3 id='idh3'>" + elem.nombre + "</h3>\
+                        <img id='imghome' src='" + img + "' alt=''>\
                         <p>" + elem.descripcion + "</p>\
                         </button>\
                 </div></div>");
+            },
+            //si ha ocurrido un error
+            error: function () {
+                console.log("error");
+
+            }
+        });
+        
+       
     });
-    var data = "text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(userArray));
+    /*var data = "text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(userArray));
     $('.exportar').attr('href', 'data:' + data);
 
     $('.exportar').attr('download', 'CUENTOS.json'); 
-    $('.exportar').trigger('click'); 
+    $('.exportar').trigger('click'); */
 };
+
 var idRespuesta;
 //CUENTO
 function recibirCuento() {
     var j = localStorage.getItem("var")
-    //alert(j);
-    var userArray = [];
-    userArray = leer();
+    alert("Disfruta del cuento!"+ j);
+    var elem = {idcuento: j}
+    $.ajax({
+            url: '/listarImg',
+            type: 'POST',
+            data: elem,
+            cache: false,
+          
+            success: function (data) {
 
-    alert("Disfruta del cuento!" + userArray)
-    $.each(userArray[0].cuentos, function (index, elem) {
+                console.log(data);
+                console.log(data.length);
+                //img=data[0].imagen;
+                
+            },
+            //si ha ocurrido un error
+            error: function () {
+                console.log("error");
+
+            }
+        });
+    
+    
+   /* $.each(userArray[0].cuentos, function (index, elem) {
         if (elem.nombre == j) {
-            //alert("oki");
+            
             $(".cuentoTitulo").html("<a href='#'>"+elem.nombre+"</a>");
             $(".descripcion").html(elem.descripcion);
             $(".credito").html("Créditos: "+elem.credito);
@@ -685,7 +748,7 @@ function recibirCuento() {
                                     <div class='container'>\
                                         <div class='carousel-caption'>\
                                             <audio controls class='ocultar'><source src='"+elem.audio+"'></audio>\
-                                            <button id='reproducir' onclick='reproducir(this)'><img src='../img/repro.png'></button>\
+                                            <button id='reproducir' onclick='reproducir(this)'><img src='images/repro.png'></button>\
                                         </div>\
                                     </div>\
                                     </div>");
@@ -701,11 +764,11 @@ function recibirCuento() {
            
             $.each(elem.pregunta, function (i, elem2) {
               $(".carousel-inner").append("<div class='item'> \
-                                    <img src='../img/fondoPregunta.jpg' alt='ImagenCuento'>\
+                                    <img src='images/fondoPregunta.jpg' alt='ImagenCuento'>\
                                     <div class='container'>\
                                         <div class='carousel-caption'>\
                                             <h3>PREGUNTA "+(i+1)+"</h3>\
-                                            <button id='reproducir' onclick='mst("+(i+1)+")'><img src='../img/interrogacion.png'></button>\
+                                            <button id='reproducir' onclick='mst("+(i+1)+")'><img src='images/interrogacion.png'></button>\
                                         </div>\
                                     </div>\
                                     </div>");
@@ -719,7 +782,7 @@ function recibirCuento() {
                                         <div class='col-md-4 col-sm-4 fondoAudio'>\
                                             <br><br><br>\
                                             <audio controls id='audioPregunta' class='ocultar'><source src='"+ elem2.audio+"'></audio>\
-                                            <button id='reproducirPre"+(i+1)+"' onclick='reproducirPregunta"+(i+1)+"()'><img src='../img/repro.png'></button>\
+                                            <button id='reproducirPre"+(i+1)+"' onclick='reproducirPregunta"+(i+1)+"()'><img src='images/repro.png'></button>\
                                         </div>\
                                         <div class='col-md-8 col-sm-8 fondoPreguntas'>\
                                             <button id='valImg1' onclick = 'validarimg1()'><img id='img1' src='" + elem2.img1 + "' alt=''></button>\
@@ -733,7 +796,7 @@ function recibirCuento() {
             });
         }
        
-       });
+       });*/
 
 
 };
@@ -772,9 +835,9 @@ function ocl() {
 
 //PASAR VARIABLE
 function enviar(btn) {
-    var pasarVar = $(btn).find('h3').html();
-    localStorage.setItem("var", pasarVar);
-    window.location = "cuento.html";
+   
+    localStorage.setItem("var", btn);
+    window.location = "/cuento";
 };
 
 /*CARGAR ACTIVIDADES EN LOS CUENTOS*/
