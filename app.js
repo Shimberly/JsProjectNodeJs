@@ -79,7 +79,7 @@ app.get('/listar', (req, res, next) => {
     
    
 });
-app.get('/listarPreguntas', (req, res, next) => {
+app.post('/listarPreguntas', (req, res, next) => {
     var client = new pg.Client(conString);
     client.connect(function(err) {
         if(err) {
@@ -87,11 +87,10 @@ app.get('/listarPreguntas', (req, res, next) => {
             return res.status(500).json({success: false, data: err});
         }
 
-        client.query('SELECT * FROM pregunta WHERE idusuario=1;', function(err, result) {
+        client.query('SELECT * FROM pregunta WHERE idcuento=2;', function(err, result) {
             if(err) {
                 return console.error('error running query', err);
             }
-            
             //console.log(result);
             client.end();
             return res.json(result.rows);
