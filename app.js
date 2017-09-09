@@ -139,20 +139,84 @@ app.post('/guardarCuento', (req, res) => {
             return res.status(500).json({success: false, data: err});
         }
         console.log("nombre "+req.body.nombre+', descrip '+req.body.descripcion+', credito'+req.body.credito);
-        client.query('INSERT INTO  cuento  (nombre ,  descripcion ,  creditos ,  idusuario) VALUES ('+req.body.nombre+', '+req.body.descripcion+', '+req.body.credito+', 1);', function(err, result) {
+        client.query("INSERT INTO  cuento  (nombre ,  descripcion ,  creditos ,  idusuario) VALUES ('"+req.body.nombre+"', '"+req.body.descripcion+"', '"+req.body.credito+"', 1);", function(err, result) {
             if(err) {
                 return console.error('error running query', err);
             }
-            
-            //console.log(result);
             client.end();
             return res.json(result.rows);
-            
-           
         });
         
     });
     
+    
+   
+   
+});
+
+app.post('/guardarPregunta', (req, res) => {
+    var client = new pg.Client(conString);
+    client.connect(function(err) {
+        if(err) {
+            return console.error('could not connect to postgres', err);
+            return res.status(500).json({success: false, data: err});
+        }
+        //console.log("nombre "+req.body.nombre+', descrip '+req.body.descripcion+', credito'+req.body.credito);
+        client.query("INSERT INTO  pregunta  (img1 ,  img2 ,  audio ,  respuesta , idcuento) VALUES ('"+req.body.pregunta.img1+"', '"+req.body.pregunta.img2+"', '"+req.body.pregunta.audio+"', '"+req.body.pregunta.respuesta+"',"+req.body.id+");", function(err, result) {
+            if(err) {
+                return console.error('error running query', err);
+            }
+            client.end();
+            return res.json(result.rows);
+        });
+        
+    });
+    
+    
+   
+   
+});
+app.get('/ultimoid', (req, res) => {
+    var client = new pg.Client(conString);
+    client.connect(function(err) {
+        client.query('SELECT idcuento FROM cuento ORDER BY idcuento DESC ;', function(err, result) {
+            if(err) {
+                return console.error('error running query', err);
+            }
+            
+            console.log("mi: "+result.rows[0].idcuento);
+            client.end();
+            return res.json(result.rows);
+            
+            
+        });
+        
+        
+    });
+   
+   
+});
+
+app.post('/insertarImg', (req, res) => {
+    //console.log("miau "+util.inspect(req,false,null));
+    //console.log("img "+req.body.paginas.length);
+    var id=req.body.id;
+    var client = new pg.Client(conString);
+    client.connect(function(err) {
+        client.query("INSERT INTO pagina(imagen ,  audio ,  idcuento ) VALUES ('"+ req.body.imagen +"', '"+ req.body.audio +"', '"+ id +"');", function(err, result) {
+            if(err) {
+                return console.error('error running query', err);
+            }
+           
+            client.end();
+            return res.json(result.rows);
+            
+            
+        });
+        
+        
+    });
+   
    
 });
 
@@ -222,7 +286,7 @@ app.post('/subir', (req, res) => {
         /* The file name of the uploaded file */
         var file_name = this.openedFiles[0].name;
         /* Location where we want to copy the uploaded file */
-        var new_location = 'public/images/';
+        var new_location = 'public/images/cuentos/';
         fs.copy(temp_path, new_location + file_name, function(err) {  
             if (err) {
                 console.error(err);

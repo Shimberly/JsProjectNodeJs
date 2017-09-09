@@ -214,6 +214,10 @@ $("#guardar").click(function () {
         //alert("f "+usuarios[0].cuento.length);
         //usuarios[0].cuentos.push(cuento);
         //alert("au: "+usuarios.length);
+        /*var params = {
+        id: //aqui defines el valor del parametro
+        proveedorId: $("#proveedorId").val()*/
+    };
         $.ajax({
             url: '/guardarCuento',
             type: 'POST',
@@ -221,31 +225,83 @@ $("#guardar").click(function () {
             cache: false,
           
             success: function (data) {
-
-                console.log(data);
-
+                
+                
             },
             //si ha ocurrido un error
             error: function () {
-                console.log("error");
+                console.log("error pokemon");
 
             }
         });
-        /*
+        
         $.ajax({
-            url: 'guardarJson.php',
-            method: 'post',
-            data: {
-                "identificador": usuarios
-            },
+            url: '/ultimoid',
+            method: 'GET',
+           
             success: function (data) {
-                alert(data);
-                //alert("au: "+usuarios.length);
+      
+                var idcuento = data[0].idcuento+1;
+                alert("au: "+ idcuento);
+                
+                
+                
+                
+                 $.each(cuento.pagina, function (i, emp) {
+                        var params = {
+                            id: idcuento,
+                            imagen: emp.imagen,
+                            audio: emp.audio
+                        }
+                     
+                      $.ajax({
+                            url: '/insertarImg',
+                            method: 'POST',
+                            data: params,
+                            success: function (data) {
+                                console.log("yeiIMg");
+
+                            },
+                            error: function () {
+                                console.log("error w");
+
+                            }
+                        });
+                     
+                 });
+                $.each(cuento.pregunta, function (i, emp) {
+                        var params = {
+                            id: idcuento,
+                            pregunta: emp,
+                        }
+                     
+                      $.ajax({
+                            url: '/guardarPregunta',
+                            method: 'POST',
+                            data: params,
+                            success: function (data) {
+                                console.log("pregunta guardada we");
+
+                            },
+                            error: function () {
+                                console.log("error pregunta");
+
+                            }
+                        });
+                     
+                 });
+               
+                
+                
+            },
+            error: function () {
+                console.log("error w");
+
             }
         });
-        */
-        window.location.href = "/";
-    }
+        
+        //window.location.href = "/";
+    
 });
 
 /*GUARDAR PREGUNTA EN JSON*/
@@ -418,7 +474,7 @@ $('.subirImg').click(function () {
             message = $("<span>La imagen ha subido correctamente.</span>");
             showMessageE(message);
             if (isImage(fileExtension)) {
-		alert(data);
+		//alert(data);
                 $(".fondoEscenas").html("<img id='draggable' class='ui-widget-content' src='images/" + data + "' />");
                 $("#draggable").draggable({
                     revert: true
