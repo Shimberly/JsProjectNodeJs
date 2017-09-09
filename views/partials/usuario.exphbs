@@ -1,4 +1,4 @@
-<body onload="leerUsuarios()">
+<body onload="recibirUsuario()">
 
     <!-- Navigation -->
     <nav id="mainNav" class="navbar navbar-default navbar-custom navbar-fixed-top">
@@ -29,12 +29,27 @@
     <br><br><br><br><br><br><br><br>
    
    
-    
-    <div class="container" id="ListaUsuario">
-         <div class="row">
-         </div>
-         <br>
-    </div>
+    <div class="container">  
+  <form id="contact">
+   
+    <h4>DATOS DE USUARIO:</h4>
+    <fieldset>
+      <input placeholder="Usuario" id="usuario" type="text" tabindex="1">
+    </fieldset>
+    <fieldset>
+      <input placeholder="Contrasena" id="pass" type="text" tabindex="2">
+    </fieldset>
+    <fieldset>
+      <input placeholder="Nombre" id="nombre" type="text" tabindex="3">
+    </fieldset>
+   
+    <fieldset>
+      <input type="button" id="btnActualizarUsuario" onclick="actualizarUsuario()" value="ACTUALIZAR"></input>
+    <input type="button" id="btnEliminarUsuario" onclick="eliminarUsuario()" value="ELIMINAR"></input>
+    </fieldset>
+   
+  </form>
+</div>
 
    
     <footer id="estilofooter2" class="text-center">

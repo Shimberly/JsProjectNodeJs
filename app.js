@@ -8,7 +8,6 @@ const pg    = require('pg');
 const connectionString = process.env.DATABASE_URL || 'postgres://localhost:5432/JSPROJECT';
 var conString = "postgres://postgres:postgres@localhost:5432/JSPROJECT";
 
-
 var express = require('express');
 var exphbs  = require('express-handlebars');
 
@@ -106,7 +105,6 @@ app.post('/listarCuentoPorId', (req, res, next) => {
    
 });
 
-<<<<<<< HEAD
 app.get('/listarUsuarios', (req, res, next) => {
     var client = new pg.Client(conString);
     client.connect(function(err) {
@@ -128,8 +126,6 @@ app.get('/listarUsuarios', (req, res, next) => {
 });
 
 
-=======
->>>>>>> 7c9262e4e9928abd25b64b1d1f23a2190ba89e96
 app.post('/listarPreguntas', (req, res, next) => {
     var client = new pg.Client(conString);
     client.connect(function(err) {
@@ -267,15 +263,9 @@ app.post('/insertarImg', (req, res) => {
         
         
     });
-<<<<<<< HEAD
-=======
-   
-   
->>>>>>> 7c9262e4e9928abd25b64b1d1f23a2190ba89e96
+
 });
 
-
-app.post
 
 app.get('/', function (req,res) {
 	res.render('partials/index');
@@ -302,7 +292,6 @@ app.get('/cuento', function (req,res) {
   		
 });
 
-<<<<<<< HEAD
 app.get('/usuarios', function (req,res) {
 	res.render('partials/usuarios');
   		
@@ -312,7 +301,10 @@ app.get('/crearUsuario', function (req,res) {
 	res.render('partials/crearUsuario');
 });
 
-
+app.get('/usuario', function (req,res) {
+	res.render('partials/usuario');
+  		
+});
 
 app.post('/GuardarUsuario', (req, res) => {
     var client = new pg.Client(conString);
@@ -359,8 +351,6 @@ app.get('/delete/:id', function (req,res) {
 	  	}
 	});
 });
-=======
->>>>>>> 7c9262e4e9928abd25b64b1d1f23a2190ba89e96
 
 
 app.get('/crear', function (req,res) {

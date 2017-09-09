@@ -695,3 +695,9 @@ fieldset {
 #btnGuardarUsuario{
     background: orange;
 }
+#btnActualizarUsuario{
+    background: orange;
+}
+#btnEliminarUsuario{
+    background: orange;
+}

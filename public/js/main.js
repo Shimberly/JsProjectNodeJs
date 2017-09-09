@@ -485,8 +485,6 @@ $('.subirImg').click(function () {
     });
 });
 
-
-
 //AUDIOS
 
 $('.subirAudio').click(function () {
@@ -840,13 +838,12 @@ function leerUsuarios() {
     
 };
 
-//ENVIAR USUARIO
+//ENVIAR USUARIO PARA SU LECTURA INDIVIDUAL
 
-function enviarUsuario(btn) {
-   
+function enviarUsuario(btn) {  
     alert("btn: "+btn);
     localStorage.setItem("var", btn);
-    window.location = "/cuento";
+    window.location = "/usuario";
 };
 
 
@@ -865,11 +862,8 @@ function guardarUsuario() {
         type: 'POST',
        data: params,
         cache: false,
-
        
         success: function (data) {
-            
-            
             
             console.log(data);
             datos=data;
@@ -884,6 +878,7 @@ function guardarUsuario() {
 
 
 var idRespuesta;
+
 //CUENTO
 function recibirCuento() {
     var j = localStorage.getItem("var")
@@ -1064,6 +1059,11 @@ function recibirCuento() {
 
 
 };
+
+function recibirUsuario() {  
+    alert("hola");
+};
+
 function reproducir(btn) {
    //$(btn).addClass('ocultar');
    //$(btn).parent().find('audio').attr( "autoplay", "autoplay" );
@@ -1098,8 +1098,7 @@ function ocl() {
 };
 
 //PASAR VARIABLE
-function enviar(btn) {
-   
+function enviar(btn) {  
     localStorage.setItem("var", btn);
     window.location = "/cuento";
 };
