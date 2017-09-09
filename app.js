@@ -79,6 +79,28 @@ app.get('/listar', (req, res, next) => {
     
    
 });
+
+app.get('/listarUsuarios', (req, res, next) => {
+    var client = new pg.Client(conString);
+    client.connect(function(err) {
+        if(err) {
+            return console.error('could not connect to postgres', err);
+            return res.status(500).json({success: false, data: err});
+        }
+
+        client.query('SELECT * FROM usuario', function(err, result) {
+            if(err) {
+                return console.error('error running query', err);
+            }
+
+            client.end();
+            return res.json(result.rows);
+            
+        }); 
+    });
+});
+
+
 app.post('/listarPreguntas', (req, res, next) => {
     var client = new pg.Client(conString);
     client.connect(function(err) {
@@ -152,9 +174,10 @@ app.post('/guardarCuento', (req, res) => {
         });
         
     });
-    
-   
 });
+
+
+app.post
 
 app.get('/', function (req,res) {
 	res.render('partials/index');
@@ -181,6 +204,42 @@ app.get('/cuento', function (req,res) {
   		
 });
 
+app.get('/usuarios', function (req,res) {
+	res.render('partials/usuarios');
+  		
+});
+
+app.get('/crearUsuario', function (req,res) {
+	res.render('partials/crearUsuario');
+});
+
+
+
+app.post('/GuardarUsuario', (req, res) => {
+    var client = new pg.Client(conString);
+    client.connect(function(err) {
+        if(err) {
+            return console.error('could not connect to postgres', err);
+            return res.status(500).json({success: false, data: err});
+        }
+       
+        console.log("miau "+util.inspect(req,false,null));
+        
+        client.query("INSERT INTO  usuario  (usuario ,  pass ,  nombre ) VALUES ('"+req.body.usuario+"', '"+req.body.pass+"', '"+req.body.nombre+"');", function(err, result) {
+            if(err) {
+                return console.error('error running query', err);
+            }
+            
+            //console.log(result);
+            client.end();
+            return res.json(result.rows);
+            
+        });
+        
+    });
+});
+
+
 app.get('/delete/:id', function (req,res) {
 	var id = req.params.id;
 
@@ -201,6 +260,7 @@ app.get('/delete/:id', function (req,res) {
 	  	}
 	});
 });
+
 
 app.get('/crear', function (req,res) {
 res.render('partials/crear');

@@ -1,4 +1,6 @@
+<body>
 
+    <!-- Navigation -->
     <nav id="mainNav" class="navbar navbar-default navbar-custom navbar-fixed-top">
         <div class="container">
             <!-- Brand and toggle get grouped for better mobile display -->
@@ -15,33 +17,56 @@
                         <a></a>
                     </li>
                     <li>
-                        <a class="page-scroll" href="/nosotros">NOSOTROS</a>
+                        <a class="page-scroll" href="/">SALIR</a>
                     </li>
-                     <li>
-                        <a class="page-scroll" href="/usuarios">USUARIOS</a>
-                    </li>
+                   
                 </ul>
             </div>
         </div>
     </nav>
 
     <!-- Header -->
-    <header>
-        <div class="container">
-            <br> <br><br> <br> <br> <br><br><br> <br><br> <br><br> <br>
-            <a href="/crearCuento" class="page-scroll btn btn-xl"><img src="images/btn1.png" alt="icono Crear"><br> CREAR CUENTO</a>
-            <a href="/listarCuentos" class="page-scroll btn btn-xl"><img src="images/btn2.png" alt="icono leer"><br> LEER CUENTO</a>
+    <br><br><br><br><br><br><br><br><br><br>
+   
+    <br><br><br>
+    
+    
+   <div class="container">  
+  <form id="contact">
+   
+    <h4>Crea un nuevo usuario</h4>
+    <fieldset>
+      <input placeholder="Usuario" id="usuario" type="text" tabindex="1">
+    </fieldset>
+    <fieldset>
+      <input placeholder="Contrasena" id="pass" type="text" tabindex="2">
+    </fieldset>
+    <fieldset>
+      <input placeholder="Nombre" id="nombre" type="text" tabindex="3">
+    </fieldset>
+   
+    <fieldset>
+      <input type="button" id="btnGuardarUsuario" onclick="guardarUsuario()" value="GUARDAR"></input>
+    </fieldset>
+   
+  </form>
+</div>
+    
 
-            <div class="intro-text">
-                <div class="intro-lead-in"></div>
-                <div class="intro-heading"></div>
-
-            </div>
-        </div>
-    </header>
-
-    <footer id="estilofooter" class="text-center">
+   
+    <footer id="estilofooter2" class="text-center">
         <div class="col-lg-12">
             <p>ESPOL 2017</p>
+            
         </div>
+
     </footer>
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <script src="js/main.js" type="text/javascript"></script>
+    
+    
+</body>

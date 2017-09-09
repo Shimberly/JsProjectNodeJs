@@ -729,6 +729,110 @@ function leerCuento() {
     $('.exportar').trigger('click'); */
 };
 
+
+/* LEER USUARIOS */
+function leerUsuarios() {
+     var datos="";
+     $.ajax({
+        url: '/listarUsuarios',
+        type: 'GET',
+       
+        cache: false,
+        contentType: false,
+        processData: false,
+        
+        success: function (data) {
+               //alert("1"); 
+               console.log(data);
+               datos=data;
+               $.each(datos, function (index, elem) {
+                   
+               $("#ListaUsuario").append("<div class='col-md-4 portfolio-item'>\
+                        <div id='idh4'>\
+                                <button id='btnLista' onclick='enviarUsuario("+ elem.idusuario +")'>\
+                                <h3 id='idh3'>" + elem.nombre + "</h3>\<img id='imghome' src='/images/caticon.png'>\
+                                </button>\
+                        </div></div>");
+                  
+                /*$.ajax({
+                    url: '/listarImg',
+                    type: 'POST',
+                    data: elem,
+                    cache: false,
+
+                    success: function (data) {
+                        console.log(data);
+                        img=data[0].imagen;
+                         $("#ListaCuento").append("<div class='col-md-4 portfolio-item'>\
+                        <div id='idh4'>\
+                                <button id='btnLista' onclick='enviar("+ elem.idcuento +")'>\
+                                <h3 id='idh3'>" + elem.nombre + "</h3>\
+                                <img id='imghome' src='" + img + "' alt=''>\
+                                <p>" + elem.descripcion + "</p>\
+                                </button>\
+                        </div></div>");
+                    },
+
+                    error: function () {
+                        console.log("error");
+
+                    }
+                });
+            */});
+        },
+        //si ha ocurrido un error
+        error: function () {
+            console.log("error");
+             alert("eror"); 
+           
+        }
+    });
+    
+};
+
+//ENVIAR USUARIO
+
+function enviarUsuario(btn) {
+   
+    alert("btn: "+btn);
+    localStorage.setItem("var", btn);
+    window.location = "/cuento";
+};
+
+
+function guardarUsuario() {
+    alert( "usuario"+ $("#usuario").val());
+    alert( "pass"+ $("#pass").val());
+    alert( "nobre"+ $("#nombre").val());
+    var params ={
+        usuario:$("#usuario").val(),
+        pass:$("#pass").val(),
+        nombre:$("#nombre").val()
+    } 
+    
+     $.ajax({
+        url: '/GuardarUsuario',
+        type: 'POST',
+       data: params,
+        cache: false,
+
+       
+        success: function (data) {
+            
+            
+            
+            console.log(data);
+            datos=data;
+        },
+        //si ha ocurrido un error
+        error: function () {
+            console.log("error");
+           
+        }
+    });
+};
+
+
 var idRespuesta;
 //CUENTO
 function recibirCuento() {
