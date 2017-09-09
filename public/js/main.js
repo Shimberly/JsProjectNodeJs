@@ -725,9 +725,126 @@ function recibirCuento() {
 
                 console.log(data);
                 console.log(data.length);
+                
+                
+        
+            
+            //$(".cuentoTitulo").html("<a href='#'>"+elem.nombre+"</a>");
+            //$(".descripcion").html(elem.descripcion);
+            //$(".credito").html("Créditos: "+elem.credito);
+            $.each(data, function (index, elem) {
+                $(".carousel-inner").append("<div class='item'> \
+                                    <img src='" + elem.imagen + "' alt='ImagenCuento'>\
+                                    <div class='container'>\
+                                        <div class='carousel-caption'>\
+                                            <audio controls class='ocultar'><source src='"+elem.audio+"'></audio>\
+                                            <button id='reproducir' onclick='reproducir(this)'><img src='images/repro.png'></button>\
+                                        </div>\
+                                    </div>\
+                                    </div>");
+            if(index==0){
+                $(".carousel-inner").find('.item').addClass('item active');
+            }
+                
+            
+            
+            
+           // $(".carousel-indicators").append(" <li data-target='#myCarousel' data-slide-to='"+index+"'></li>");
+        });
+           /*
+            $.each(elem.pregunta, function (i, elem2) {
+              $(".carousel-inner").append("<div class='item'> \
+                                    <img src='images/fondoPregunta.jpg' alt='ImagenCuento'>\
+                                    <div class='container'>\
+                                        <div class='carousel-caption'>\
+                                            <h3>PREGUNTA "+(i+1)+"</h3>\
+                                            <button id='reproducir' onclick='mst("+(i+1)+")'><img src='images/interrogacion.png'></button>\
+                                        </div>\
+                                    </div>\
+                                    </div>");
+                
+                $(".cntCuento").append("<div id='preguntas"+(i+1)+"' class='ocultar'>\
+                          <div class='panel panel-default'>\
+                                <div class='panel-heading'>\
+                                    <h3 class='panel-title'>ACTIVIDAD</h3>\
+                                </div>\
+                                <div class='panel-body'>\
+                                        <div class='col-md-4 col-sm-4 fondoAudio'>\
+                                            <br><br><br>\
+                                            <audio controls id='audioPregunta' class='ocultar'><source src='"+ elem2.audio+"'></audio>\
+                                            <button id='reproducirPre"+(i+1)+"' onclick='reproducirPregunta"+(i+1)+"()'><img src='images/repro.png'></button>\
+                                        </div>\
+                                        <div class='col-md-8 col-sm-8 fondoPreguntas'>\
+                                            <button id='valImg1' onclick = 'validarimg1()'><img id='img1' src='" + elem2.img1 + "' alt=''></button>\
+                                            <button id='valImg2' onclick = 'validarimg2()'><img id='img2' src='" + elem2.img2 + "' alt=''></button>\
+                                        </div>\
+                                </div>\
+                            </div>\
+                      </div>");
+               
+                idRespuesta = elem2.respuesta;
+            });
+        
+       
+ */
+                
                 //img=data[0].imagen;
                 
             },
+            //si ha ocurrido un error
+            error: function () {
+                console.log("error");
+
+            }
+        });
+     $.ajax({
+            url: '/listarPreguntas',
+            type: 'POST',
+            data: elem,
+            cache: false,
+          
+            success: function (data) {
+
+                console.log(data);
+                console.log(data.length);
+                 
+            $.each(data, function (i, elem2) {
+              $(".carousel-inner").append("<div class='item'> \
+                                    <img src='images/fondoPregunta.jpg' alt='ImagenCuento'>\
+                                    <div class='container'>\
+                                        <div class='carousel-caption'>\
+                                            <h3>PREGUNTA "+(i+1)+"</h3>\
+                                            <button id='reproducir' onclick='mst("+(i+1)+")'><img src='images/interrogacion.png'></button>\
+                                        </div>\
+                                    </div>\
+                                    </div>");
+                
+                $(".cntCuento").append("<div id='preguntas"+(i+1)+"' class='ocultar'>\
+                          <div class='panel panel-default'>\
+                                <div class='panel-heading'>\
+                                    <h3 class='panel-title'>ACTIVIDAD</h3>\
+                                </div>\
+                                <div class='panel-body'>\
+                                        <div class='col-md-4 col-sm-4 fondoAudio'>\
+                                            <br><br><br>\
+                                            <audio controls id='audioPregunta' class='ocultar'><source src='"+ elem2.audio+"'></audio>\
+                                            <button id='reproducirPre"+(i+1)+"' onclick='reproducirPregunta"+(i+1)+"()'><img src='images/repro.png'></button>\
+                                        </div>\
+                                        <div class='col-md-8 col-sm-8 fondoPreguntas'>\
+                                            <button id='valImg1' onclick = 'validarimg1()'><img id='img1' src='" + elem2.img1 + "' alt=''></button>\
+                                            <button id='valImg2' onclick = 'validarimg2()'><img id='img2' src='" + elem2.img2 + "' alt=''></button>\
+                                        </div>\
+                                </div>\
+                            </div>\
+                      </div>");
+               
+                idRespuesta = elem2.respuesta;
+            });
+        
+       
+ 
+                
+         },
             //si ha ocurrido un error
             error: function () {
                 console.log("error");

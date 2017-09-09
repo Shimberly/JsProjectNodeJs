@@ -79,6 +79,30 @@ app.get('/listar', (req, res, next) => {
     
    
 });
+app.get('/listarPreguntas', (req, res, next) => {
+    var client = new pg.Client(conString);
+    client.connect(function(err) {
+        if(err) {
+            return console.error('could not connect to postgres', err);
+            return res.status(500).json({success: false, data: err});
+        }
+
+        client.query('SELECT * FROM pregunta WHERE idusuario=1;', function(err, result) {
+            if(err) {
+                return console.error('error running query', err);
+            }
+            
+            //console.log(result);
+            client.end();
+            return res.json(result.rows);
+            
+           
+        });
+        
+    });
+    
+   
+});
 
 app.post('/listarImg', (req, res) => {
     var client = new pg.Client(conString);
