@@ -55,15 +55,15 @@ app.get('/miau', (req, res, next) => {
    
 });
 
-app.get('/listar', (req, res, next) => {
+app.post('/listarCuentoPorUsuario', (req, res, next) => {
     var client = new pg.Client(conString);
     client.connect(function(err) {
         if(err) {
             return console.error('could not connect to postgres', err);
             return res.status(500).json({success: false, data: err});
         }
-
-        client.query('SELECT * FROM cuento WHERE idusuario=1;', function(err, result) {
+       
+        client.query('SELECT * FROM cuento WHERE idusuario='+ req.body.idusuario +';', function(err, result) {
             if(err) {
                 return console.error('error running query', err);
             }
@@ -79,6 +79,33 @@ app.get('/listar', (req, res, next) => {
     
    
 });
+
+
+app.post('/listarCuentoPorId', (req, res, next) => {
+    var client = new pg.Client(conString);
+    client.connect(function(err) {
+        if(err) {
+            return console.error('could not connect to postgres', err);
+            return res.status(500).json({success: false, data: err});
+        }
+       
+        client.query('SELECT * FROM cuento WHERE idcuento='+ req.body.idcuento +';', function(err, result) {
+            if(err) {
+                return console.error('error running query', err);
+            }
+            
+            //console.log(result);
+            client.end();
+            return res.json(result.rows);
+            
+           
+        });
+        
+    });
+    
+   
+});
+
 app.post('/listarPreguntas', (req, res, next) => {
     var client = new pg.Client(conString);
     client.connect(function(err) {
@@ -245,26 +272,6 @@ app.get('/cuento', function (req,res) {
   		
 });
 
-app.get('/delete/:id', function (req,res) {
-	var id = req.params.id;
-
-	connection.query('DELETE FROM donuts WHERE iddonuts = ?', [id], function(err, result) {
-  		if (!err){
-  			var response = [];
-
-			if (result.affectedRows != 0) {
-				response.push({'result' : 'success'});
-			} else {
-				response.push({'msg' : 'No Result Found'});
-			}
-
-			res.setHeader('Content-Type', 'application/json');
-	    	res.status(200).send(JSON.stringify(response));
-  		} else {
-		    res.status(400).send(err);
-	  	}
-	});
-});
 
 app.get('/crear', function (req,res) {
 res.render('partials/crear');
