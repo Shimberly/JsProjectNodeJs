@@ -1,4 +1,4 @@
-CREATE DATABASE JSPROJECT;
+/* create database JSPROJECT */
 CREATE TABLE usuario (
   idusuario SERIAL PRIMARY KEY,
   usuario VARCHAR(45) NOT NULL,
@@ -31,17 +31,10 @@ CREATE TABLE  pregunta  (
    audio  VARCHAR(255) NULL,
    respuesta  VARCHAR(45) NULL,
    idcuento  INT NOT NULL,
-  CONSTRAINT  idcuenot 
+  CONSTRAINT  idcuento
     FOREIGN KEY ( idcuento )
     REFERENCES  cuento  ( idcuento ));
 
-
-INSERT INTO  pregunta  (img1 ,  img2 ,  audio, respuesta, idcuento) VALUES ('images/cuentos/colorverde.jpg', 'images/cuentos/colorladrillo.jpg', 'images/cuentos/preguntacerditos.mp3','2',1,);
-
-
-INSERT INTO  pregunta  (img1 ,  img2 ,  audio, respuesta, idcuento) VALUES ('images/cuentos/opcion1P1.jpg', 'images/cuentos/opcion2P1.jpg', 'images/cuentos/preguntablancanieves.mp3','1',2);
-
-INSERT INTO  pregunta  (img1 ,  img2 ,  audio, respuesta, idcuento) VALUES ('images/cuentos/nombrePapaPinocho.png', 'images/cuentos/nombrePapaPinocho2.gif', 'images/cuentos/PapaPinocho.mp3','1',3,);
 
 
 
@@ -120,6 +113,15 @@ INSERT INTO   pagina  (     imagen ,  audio ,  idcuento ) VALUES ('images/cuento
 INSERT INTO   pagina  (     imagen ,  audio ,  idcuento ) VALUES ('images/cuentos/blancanieves6.jpg', 'images/cuentos/blancanieves6.mp3', '5');
 INSERT INTO   pagina  (     imagen ,  audio ,  idcuento ) VALUES ('images/cuentos/blancanieves7.jpg', 'images/cuentos/blancanieves7.mp3', '5');
 INSERT INTO   pagina  (     imagen ,  audio ,  idcuento ) VALUES ('images/cuentos/blancanieves8.jpg', 'images/cuentos/blancanieves8.mp3', '5');
+
+INSERT INTO  pregunta  (img1 ,  img2 ,  audio, respuesta, idcuento) VALUES ('images/cuentos/colorverde.jpg', 'images/cuentos/colorladrillo.jpg', 'images/cuentos/preguntacerditos.mp3','2',1);
+
+
+INSERT INTO  pregunta  (img1 ,  img2 ,  audio, respuesta, idcuento) VALUES ('images/cuentos/opcion1P1.jpg', 'images/cuentos/opcion2P1.jpg', 'images/cuentos/preguntablancanieves.mp3','1',2);
+
+INSERT INTO  pregunta  (img1 ,  img2 ,  audio, respuesta, idcuento) VALUES ('images/cuentos/nombrePapaPinocho.png', 'images/cuentos/nombrePapaPinocho2.gif', 'images/cuentos/PapaPinocho.mp3','1',3);
+
+
 
 
 
