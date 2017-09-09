@@ -214,6 +214,10 @@ $("#guardar").click(function () {
         //alert("f "+usuarios[0].cuento.length);
         //usuarios[0].cuentos.push(cuento);
         //alert("au: "+usuarios.length);
+        /*var params = {
+        id: //aqui defines el valor del parametro
+        proveedorId: $("#proveedorId").val()*/
+    };
         $.ajax({
             url: '/guardarCuento',
             type: 'POST',
@@ -221,31 +225,79 @@ $("#guardar").click(function () {
             cache: false,
           
             success: function (data) {
-
-                console.log(data);
-
+                
+                
             },
             //si ha ocurrido un error
             error: function () {
-                console.log("error");
+                console.log("error pokemon");
 
             }
         });
-        /*
+        
         $.ajax({
-            url: 'guardarJson.php',
-            method: 'post',
-            data: {
-                "identificador": usuarios
-            },
+            url: '/ultimoid',
+            method: 'GET',
+           
             success: function (data) {
-                alert(data);
-                //alert("au: "+usuarios.length);
+      
+                var idcuento = data[0].idcuento+1;
+               
+                 $.each(cuento.pagina, function (i, emp) {
+                        var params = {
+                            id: idcuento,
+                            imagen: emp.imagen,
+                            audio: emp.audio
+                        }
+                     
+                      $.ajax({
+                            url: '/insertarImg',
+                            method: 'POST',
+                            data: params,
+                            success: function (data) {
+                                console.log("yeiIMg");
+
+                            },
+                            error: function () {
+                                console.log("error w");
+
+                            }
+                        });
+                     
+                 });
+                $.each(cuento.pregunta, function (i, emp) {
+                        var params = {
+                            id: idcuento,
+                            pregunta: emp,
+                        }
+                     
+                      $.ajax({
+                            url: '/guardarPregunta',
+                            method: 'POST',
+                            data: params,
+                            success: function (data) {
+                                console.log("pregunta guardada we");
+
+                            },
+                            error: function () {
+                                console.log("error pregunta");
+
+                            }
+                        });
+                     
+                 });
+               
+                
+                
+            },
+            error: function () {
+                console.log("error w");
+
             }
         });
-        */
-        window.location.href = "/";
-    }
+        
+        //window.location.href = "/";
+    
 });
 
 /*GUARDAR PREGUNTA EN JSON*/
@@ -418,8 +470,8 @@ $('.subirImg').click(function () {
             message = $("<span>La imagen ha subido correctamente.</span>");
             showMessageE(message);
             if (isImage(fileExtension)) {
-		alert(data);
-                $(".fondoEscenas").html("<img id='draggable' class='ui-widget-content' src='images/" + data + "' />");
+		//alert(data);
+                $(".fondoEscenas").html("<img id='draggable' class='ui-widget-content' src='images/cuentos/" + data + "' />");
                 $("#draggable").draggable({
                     revert: true
                 });
@@ -462,7 +514,7 @@ $('.subirAudio').click(function () {
             message = $("<span\>El audio ha subido correctamente.</span>");
             showMessageA(message);
             if (isImage(fileExtension)) {
-                $(".fondoAudio").html("<audio id='draggableAudio' controls><source src='images/" + data + "' type='audio/mp3'></audio>");
+                $(".fondoAudio").html("<audio id='draggableAudio' controls><source src='images/cuentos/" + data + "' type='audio/mp3'></audio>");
                 $("#draggableAudio").draggable({
                     revert: true
                 });
@@ -504,7 +556,7 @@ $('.subirAudioP').click(function () {
             message = $("<span\>El audio ha subido correctamente.</span>");
             showMessageP(message);
             if (isImage(fileExtension)) {
-                $(".fondoAudioP").append("<audio controls><source src='images/" + data + "' type='audio/mp3'></audio>");
+                $(".fondoAudioP").append("<audio controls><source src='images/cuentos/" + data + "' type='audio/mp3'></audio>");
                 console.log(data);
                 /*<audio controls>
                               <source src="../img/cuentos/000938162_prev.mp3" type="audio/mp3">
@@ -547,7 +599,7 @@ $('.subirImgP').click(function () {
             // message = $("<span>La imagen ha subido correctamente.</span>");
             //showMessageE(message);
             if (isImage(fileExtension)) {
-                $(".fondoP1").html("<img id='img1' class='ui-widget-content' src='images/" + data + "' />");
+                $(".fondoP1").html("<img id='img1' class='ui-widget-content' src='images/cuentos/" + data + "' />");
 
             }
         },
@@ -585,7 +637,7 @@ $('.subirImgP2').click(function () {
             // message = $("<span>La imagen ha subido correctamente.</span>");
             //showMessageE(message);
             if (isImage(fileExtension)) {
-                $(".fondoP2").html("<img id='img2' class='ui-widget-content' src='images/" + data + "' />");
+                $(".fondoP2").html("<img id='img2' class='ui-widget-content' src='images/cuentos/" + data + "' />");
 
             }
         },
@@ -665,17 +717,19 @@ function sliderDrop() {
 /* LISTAR CUENTOS */
 function leerCuento() {
      var datos="";
+     var numero=1;
+     var params = {
+        idusuario : numero
+     }
      $.ajax({
-        url: '/listar',
-        type: 'GET',
-       
+        url: '/listarCuentoPorUsuario',
+        type: 'POST',
+        data: params,
         cache: false,
-        contentType: false,
-        processData: false,
-        
+       
         success: function (data) {
             
-            console.log(data);
+            //console.log(data);
             datos=data;
         },
         //si ha ocurrido un error
@@ -702,7 +756,7 @@ function leerCuento() {
           
             success: function (data) {
 
-                console.log(data);
+                //console.log(data);
                 img=data[0].imagen;
                  $("#ListaCuento").append("<div class='col-md-4 portfolio-item'>\
                 <div id='idh4'>\
@@ -722,11 +776,7 @@ function leerCuento() {
         
        
     });
-    /*var data = "text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(userArray));
-    $('.exportar').attr('href', 'data:' + data);
-
-    $('.exportar').attr('download', 'CUENTOS.json'); 
-    $('.exportar').trigger('click'); */
+  
 };
 
 
@@ -837,7 +887,7 @@ var idRespuesta;
 //CUENTO
 function recibirCuento() {
     var j = localStorage.getItem("var")
-    alert("Disfruta del cuento!"+ j);
+    alert("Disfruta del cuento!");
     var elem = {idcuento: j}
     $.ajax({
             url: '/listarImg',
@@ -851,69 +901,42 @@ function recibirCuento() {
                 console.log(data.length);
                 
                 
-        
-            
-            //$(".cuentoTitulo").html("<a href='#'>"+elem.nombre+"</a>");
-            //$(".descripcion").html(elem.descripcion);
-            //$(".credito").html("Créditos: "+elem.credito);
-            $.each(data, function (index, elem) {
-                $(".carousel-inner").append("<div class='item'> \
-                                    <img src='" + elem.imagen + "' alt='ImagenCuento'>\
-                                    <div class='container'>\
-                                        <div class='carousel-caption'>\
-                                            <audio controls class='ocultar'><source src='"+elem.audio+"'></audio>\
-                                            <button id='reproducir' onclick='reproducir(this)'><img src='images/repro.png'></button>\
+                $.each(data, function (index, elem) {
+                    $(".carousel-inner").append("<div class='item'> \
+                                        <img src='" + elem.imagen + "' alt='ImagenCuento'>\
+                                        <div class='container'>\
+                                            <div class='carousel-caption'>\
+                                                <audio controls class='ocultar'><source src='"+elem.audio+"'></audio>\
+                                                <button id='reproducir' onclick='reproducir(this)'><img src='images/repro.png'></button>\
+                                            </div>\
                                         </div>\
-                                    </div>\
-                                    </div>");
-            if(index==0){
-                $(".carousel-inner").find('.item').addClass('item active');
+                                        </div>");
+                    if(index==0){
+                        $(".carousel-inner").find('.item').addClass('item active');
+                    }
+
+
+                });
+          
+            },
+            //si ha ocurrido un error
+            error: function () {
+                console.log("error");
+
             }
-                
-            
-            
-            
-           // $(".carousel-indicators").append(" <li data-target='#myCarousel' data-slide-to='"+index+"'></li>");
         });
-           /*
-            $.each(elem.pregunta, function (i, elem2) {
-              $(".carousel-inner").append("<div class='item'> \
-                                    <img src='images/fondoPregunta.jpg' alt='ImagenCuento'>\
-                                    <div class='container'>\
-                                        <div class='carousel-caption'>\
-                                            <h3>PREGUNTA "+(i+1)+"</h3>\
-                                            <button id='reproducir' onclick='mst("+(i+1)+")'><img src='images/interrogacion.png'></button>\
-                                        </div>\
-                                    </div>\
-                                    </div>");
-                
-                $(".cntCuento").append("<div id='preguntas"+(i+1)+"' class='ocultar'>\
-                          <div class='panel panel-default'>\
-                                <div class='panel-heading'>\
-                                    <h3 class='panel-title'>ACTIVIDAD</h3>\
-                                </div>\
-                                <div class='panel-body'>\
-                                        <div class='col-md-4 col-sm-4 fondoAudio'>\
-                                            <br><br><br>\
-                                            <audio controls id='audioPregunta' class='ocultar'><source src='"+ elem2.audio+"'></audio>\
-                                            <button id='reproducirPre"+(i+1)+"' onclick='reproducirPregunta"+(i+1)+"()'><img src='images/repro.png'></button>\
-                                        </div>\
-                                        <div class='col-md-8 col-sm-8 fondoPreguntas'>\
-                                            <button id='valImg1' onclick = 'validarimg1()'><img id='img1' src='" + elem2.img1 + "' alt=''></button>\
-                                            <button id='valImg2' onclick = 'validarimg2()'><img id='img2' src='" + elem2.img2 + "' alt=''></button>\
-                                        </div>\
-                                </div>\
-                            </div>\
-                      </div>");
-               
-                idRespuesta = elem2.respuesta;
-            });
-        
-       
- */
-                
-                //img=data[0].imagen;
-                
+    
+    $.ajax({
+            url: '/listarCuentoPorId',
+            type: 'POST',
+            data: elem,
+            cache: false,
+
+            success: function (data) {
+                //console.log("datos id : "+data[0].nombre);
+                $(".cuentoTitulo").html("<a href='#'>"+data[0].nombre+"</a>");
+                $(".descripcion").html(data[0].descripcion);
+                $(".credito").html("Créditos: "+data[0].credito);
             },
             //si ha ocurrido un error
             error: function () {
@@ -929,8 +952,8 @@ function recibirCuento() {
           
             success: function (data) {
 
-                console.log(data);
-                console.log(data.length);
+                //console.log(data);
+                //console.log(data.length);
                  
             $.each(data, function (i, elem2) {
               $(".carousel-inner").append("<div class='item'> \
