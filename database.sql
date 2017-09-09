@@ -35,6 +35,16 @@ CREATE TABLE  pregunta  (
     FOREIGN KEY ( idcuento )
     REFERENCES  cuento  ( idcuento ));
 
+
+INSERT INTO  pregunta  (img1 ,  img2 ,  audio, respuesta, idcuento) VALUES ('images/cuentos/colorverde.jpg', 'images/cuentos/colorladrillo.jpg', 'images/cuentos/preguntacerditos.mp3','2',1,);
+
+
+INSERT INTO  pregunta  (img1 ,  img2 ,  audio, respuesta, idcuento) VALUES ('images/cuentos/opcion1P1.jpg', 'images/cuentos/opcion2P1.jpg', 'images/cuentos/preguntablancanieves.mp3','1',2);
+
+INSERT INTO  pregunta  (img1 ,  img2 ,  audio, respuesta, idcuento) VALUES ('images/cuentos/nombrePapaPinocho.png', 'images/cuentos/nombrePapaPinocho2.gif', 'images/cuentos/PapaPinocho.mp3','1',3,);
+
+
+
 INSERT INTO  usuario  (usuario ,  pass ,  nombre ) VALUES ('Shimberly', 'kim', 'Kimberly Munoz');
 
 INSERT INTO  usuario  ( usuario ,  pass ,  nombre ) VALUES ('Deathpaul', 'paul', 'Paul Valle');
