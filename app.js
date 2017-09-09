@@ -87,7 +87,7 @@ app.post('/listarPreguntas', (req, res, next) => {
             return res.status(500).json({success: false, data: err});
         }
 
-        client.query('SELECT * FROM pregunta WHERE idcuento=2;', function(err, result) {
+        client.query('SELECT * FROM pregunta WHERE idcuento='+req.body.idcuento+';', function(err, result) {
             if(err) {
                 return console.error('error running query', err);
             }
@@ -121,6 +121,31 @@ app.post('/listarImg', (req, res) => {
             
             //console.log(result);
              client.end();
+            return res.json(result.rows);
+            
+           
+        });
+        
+    });
+    
+   
+});
+
+app.post('/guardarCuento', (req, res) => {
+    var client = new pg.Client(conString);
+    client.connect(function(err) {
+        if(err) {
+            return console.error('could not connect to postgres', err);
+            return res.status(500).json({success: false, data: err});
+        }
+        console.log("nombre "+req.body.nombre+', descrip '+req.body.descripcion+', credito'+req.body.credito);
+        client.query('INSERT INTO  cuento  (nombre ,  descripcion ,  creditos ,  idusuario) VALUES ('+req.body.nombre+', '+req.body.descripcion+', '+req.body.credito+', 1);', function(err, result) {
+            if(err) {
+                return console.error('error running query', err);
+            }
+            
+            //console.log(result);
+            client.end();
             return res.json(result.rows);
             
            

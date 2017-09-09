@@ -176,9 +176,10 @@ $('.subirAct2').click(function () {
  var preguntas = [];
    
 $("#guardar").click(function () {
+    
     var imagenesCuento = [];
     var audiosCuento = [];
-
+    
     //esta bandera sirve para saber si todas las hojas estan llenas
     var flag = 0;
     $(".escenas").each(function (index) {
@@ -199,8 +200,8 @@ $("#guardar").click(function () {
     //si todas las hojas estan llenas se puede guardar sino no
     if (flag == 0) {
 
-        var usuarios;
-        usuarios = leer();
+        //var usuarios;
+        //usuarios = leer();
         //alert(usuarios);
         var cuento = new Cuento();
         cuento.directo($("#nombre").val(), $("#descripcion").val(), $("#credito").val(), imagenesCuento, audiosCuento);
@@ -208,11 +209,29 @@ $("#guardar").click(function () {
         cuento.pregunta=preguntas;
         //alert(usuarios);
         //alert("mi: "+usuarios.length);
-        alert("Se guardo el cuento " + cuento.nombre + usuarios);
-        console.log(usuarios.length);
+        alert("Se guardo el cuento " + cuento.nombre);
+        //console.log(usuarios.length);
         //alert("f "+usuarios[0].cuento.length);
-        usuarios[0].cuentos.push(cuento);
+        //usuarios[0].cuentos.push(cuento);
         //alert("au: "+usuarios.length);
+        $.ajax({
+            url: '/guardarCuento',
+            type: 'POST',
+            data: cuento,
+            cache: false,
+          
+            success: function (data) {
+
+                console.log(data);
+
+            },
+            //si ha ocurrido un error
+            error: function () {
+                console.log("error");
+
+            }
+        });
+        /*
         $.ajax({
             url: 'guardarJson.php',
             method: 'post',
@@ -224,7 +243,8 @@ $("#guardar").click(function () {
                 //alert("au: "+usuarios.length);
             }
         });
-        window.location.href = "../index.html";
+        */
+        window.location.href = "/";
     }
 });
 
