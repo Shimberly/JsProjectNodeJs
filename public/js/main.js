@@ -242,11 +242,7 @@ $("#guardar").click(function () {
             success: function (data) {
       
                 var idcuento = data[0].idcuento+1;
-                alert("au: "+ idcuento);
-                
-                
-                
-                
+               
                  $.each(cuento.pagina, function (i, emp) {
                         var params = {
                             id: idcuento,
@@ -475,7 +471,7 @@ $('.subirImg').click(function () {
             showMessageE(message);
             if (isImage(fileExtension)) {
 		//alert(data);
-                $(".fondoEscenas").html("<img id='draggable' class='ui-widget-content' src='images/" + data + "' />");
+                $(".fondoEscenas").html("<img id='draggable' class='ui-widget-content' src='images/cuentos/" + data + "' />");
                 $("#draggable").draggable({
                     revert: true
                 });
@@ -518,7 +514,7 @@ $('.subirAudio').click(function () {
             message = $("<span\>El audio ha subido correctamente.</span>");
             showMessageA(message);
             if (isImage(fileExtension)) {
-                $(".fondoAudio").html("<audio id='draggableAudio' controls><source src='images/" + data + "' type='audio/mp3'></audio>");
+                $(".fondoAudio").html("<audio id='draggableAudio' controls><source src='images/cuentos/" + data + "' type='audio/mp3'></audio>");
                 $("#draggableAudio").draggable({
                     revert: true
                 });
@@ -560,7 +556,7 @@ $('.subirAudioP').click(function () {
             message = $("<span\>El audio ha subido correctamente.</span>");
             showMessageP(message);
             if (isImage(fileExtension)) {
-                $(".fondoAudioP").append("<audio controls><source src='images/" + data + "' type='audio/mp3'></audio>");
+                $(".fondoAudioP").append("<audio controls><source src='images/cuentos/" + data + "' type='audio/mp3'></audio>");
                 console.log(data);
                 /*<audio controls>
                               <source src="../img/cuentos/000938162_prev.mp3" type="audio/mp3">
@@ -603,7 +599,7 @@ $('.subirImgP').click(function () {
             // message = $("<span>La imagen ha subido correctamente.</span>");
             //showMessageE(message);
             if (isImage(fileExtension)) {
-                $(".fondoP1").html("<img id='img1' class='ui-widget-content' src='images/" + data + "' />");
+                $(".fondoP1").html("<img id='img1' class='ui-widget-content' src='images/cuentos/" + data + "' />");
 
             }
         },
@@ -641,7 +637,7 @@ $('.subirImgP2').click(function () {
             // message = $("<span>La imagen ha subido correctamente.</span>");
             //showMessageE(message);
             if (isImage(fileExtension)) {
-                $(".fondoP2").html("<img id='img2' class='ui-widget-content' src='images/" + data + "' />");
+                $(".fondoP2").html("<img id='img2' class='ui-widget-content' src='images/cuentos/" + data + "' />");
 
             }
         },
