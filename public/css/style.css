@@ -383,31 +383,31 @@ font-size: 20px;
 #actividades{
     background-color: aqua;
 }
-.fondoP1{
+.fondoP1, .fondo2P1{
     align-content: center;
     text-align: center;
     background-color: #41dfff;
     height: 150px;
     width: 150px;
 }
-.fondoP2{
+.fondoP2, .fondo2P2{
     align-content: center;
     text-align: center;
     background-color: #41dfff;
     height: 150px;
     width: 150px;
 }
-.fondoP1 img{
+.fondoP1 img,.fondo2P1 img{
     padding: 1px;
     width: 100%;
     height: 100%;
 }
-.fondoP2 img{
+.fondoP2 img, .fondo2P2 img{
     padding: 1px;
     width: 100%;
     height: 100%;
 }
-#btnGuardarP2, #btnGuardarP1{
+#btnGuardarP2, #btnGuardarP1, #btnGuardar2P1, #btnGuardar2P2{
     background-color: greenyellow;
     font-size: 25px;
     width: 180px;

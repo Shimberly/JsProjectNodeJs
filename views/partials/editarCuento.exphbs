@@ -16,7 +16,7 @@
                         <a href="#page-top"></a>
                     </li>
                     <li class="page-scroll">
-                        <a href="#" id="guardar">GUARDAR CUENTO</a>
+                        <a href="#" id="guardarEditar">GUARDAR CUENTO</a>
                     </li>
                     <li class="page-scroll">
                         <a href="/" id="salir">SALIR</a>
@@ -37,6 +37,7 @@
         <br>
         <br>
         <div class="nombreCuento">
+            <input id="idcuento" class="ocultar" placeholder="Nombre del Cuento" />
             <input id="nombre" placeholder="Nombre del Cuento" />
             <input id="descripcion" placeholder="Descripcion" />
         </div>
@@ -237,7 +238,7 @@
 
                         <div class="col-md-4 col-sm-4">
 
-                            <button type="button" id="btnGuardarP1">Guardar</button>
+                            <button type="button" id="btnGuardar2P1">Guardar</button>
                         </div>
                     </div>
                 </div>
