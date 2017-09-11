@@ -278,14 +278,7 @@ $("#guardar").click(function () {
                 console.log("error pokemon");
             }
         });
-        
-<<<<<<< HEAD
-=======
-       
-        
-      
->>>>>>> 49290151aa1c36a40dc916dea705eff9b902ce86
-    
+     
 });
 
 /*GUARDAR PREGUNTA EN JSON*/
@@ -1212,20 +1205,10 @@ function guardarEditar(){
                 }
             });
 
-<<<<<<< HEAD
         };  
         //window.location.href = "/";
-=======
+
             }
-        });
-        
-       
-        
-      
->>>>>>> 49290151aa1c36a40dc916dea705eff9b902ce86
-    
-    
-}
 
 function eliminarCuento(btn) {  
     alert("Hola eliminar cuento"+btn);

@@ -81,7 +81,6 @@ app.post('/listarCuentoPorUsuario', (req, res) => {
 });
 
 
-<<<<<<< HEAD
 app.post('/editarCuento', (req, res, next) => {
     var client = new pg.Client(conString);
      //console.log("miau "+util.inspect(req,false,null));
@@ -162,11 +161,7 @@ app.post('/eliminarPregPorId', (req, res, next) => {
 });
 
 
-
-app.post('/listarCuentoPorId', (req, res, next) => {
-=======
 app.post('/listarCuentoPorId', (req, res) => {
->>>>>>> 49290151aa1c36a40dc916dea705eff9b902ce86
     var client = new pg.Client(conString);
     client.connect(function(err) {
         if(err) {
