@@ -3,7 +3,9 @@
   "description": "Pagina de cuentos",
   "version": "1.0.0",
   "scripts": {
-      "start": "node app.js"
+      "start": "node app.js",
+      "heroku-prebuild": "echo This runs before Heroku installs your dependencies.",
+  "heroku-postbuild": "echo This runs afterwards."
   },
 
   "engines": {
