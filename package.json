@@ -3,9 +3,7 @@
   "description": "Pagina de cuentos",
   "version": "1.0.0",
   "scripts": {
-      "start": "node /",
-      "test": "mocha",
-      "postinstall": "bower install && grunt build"
+      "start": "node /"
   },
 
   "engines": {
