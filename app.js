@@ -55,7 +55,7 @@ app.get('/miau', (req, res, next) => {
    
 });
 
-app.post('/listarCuentoPorUsuario', (req, res, next) => {
+app.post('/listarCuentoPorUsuario', (req, res) => {
     var client = new pg.Client(conString);
     client.connect(function(err) {
         if(err) {
@@ -81,6 +81,7 @@ app.post('/listarCuentoPorUsuario', (req, res, next) => {
 });
 
 
+<<<<<<< HEAD
 app.post('/editarCuento', (req, res, next) => {
     var client = new pg.Client(conString);
      //console.log("miau "+util.inspect(req,false,null));
@@ -163,6 +164,9 @@ app.post('/eliminarPregPorId', (req, res, next) => {
 
 
 app.post('/listarCuentoPorId', (req, res, next) => {
+=======
+app.post('/listarCuentoPorId', (req, res) => {
+>>>>>>> 49290151aa1c36a40dc916dea705eff9b902ce86
     var client = new pg.Client(conString);
     client.connect(function(err) {
         if(err) {
@@ -350,7 +354,7 @@ app.post('/insertarImg', (req, res) => {
 
 
 
-app.post('/eliminarPreguntasPorCuento', (req, res, next) => {
+app.post('/eliminarPreguntasPorCuento', (req, res) => {
     var client = new pg.Client(conString);
      var idcuento=req.body.idcuento;
     
@@ -360,7 +364,7 @@ app.post('/eliminarPreguntasPorCuento', (req, res, next) => {
             return res.status(500).json({success: false, data: err});
         }
        
-        client.query('DELETE FROM pregunta WHERE idcuento=' + idcuento + ';', function(err, result) {
+        client.query('DELETE FROM pregunta WHERE idcuento=' + req.body.idcuento + ';', function(err, result) {
             if(err) {
                 return console.error('error running query', err);
             }
@@ -372,7 +376,7 @@ app.post('/eliminarPreguntasPorCuento', (req, res, next) => {
     });
 });
 
-app.post('/eliminarPaginasPorCuento', (req, res, next) => {
+app.post('/eliminarPaginasPorCuento', (req, res) => {
     var client = new pg.Client(conString);
      var idcuento=req.body.idcuento;
     
@@ -382,14 +386,14 @@ app.post('/eliminarPaginasPorCuento', (req, res, next) => {
             return res.status(500).json({success: false, data: err});
         }
        
-        client.query('DELETE FROM pagina WHERE idcuento=' + idcuento + ';', function(err, result) {
+        client.query('DELETE FROM pagina WHERE idcuento=' + req.body.idcuento + ';', function(err, result) {
             if(err) {
                 return console.error('error running query', err);
             }
             
             //console.log(result);
             client.end();
-            return res.json(result.rows);
+            return res.json(result);
         });
     });
 });
