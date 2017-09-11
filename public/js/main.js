@@ -883,7 +883,7 @@ var idRespuesta;
 function recibirCuento() {
     var j = localStorage.getItem("var")
     alert("Disfruta del cuento!");
-    var elem = {idcuento: j}
+    var elem = {idcuento: j} //REVISSSAAAAARRRRRRRRR
     $.ajax({
             url: '/listarImg',
             type: 'POST',
@@ -931,7 +931,7 @@ function recibirCuento() {
                 //console.log("datos id : "+data[0].nombre);
                 $(".cuentoTitulo").html("<a href='#'>"+data[0].nombre+"</a>");
                 $(".descripcion").html(data[0].descripcion);
-                $(".credito").html("Créditos: "+data[0].credito);
+                $(".credito").html("Créditos: "+data[0].creditos);
             },
             //si ha ocurrido un error
             error: function () {
