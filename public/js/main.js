@@ -919,6 +919,7 @@ function guardarUsuario() {
             
             console.log(data);
             datos=data;
+             window.location = "/usuarios";
         },
         //si ha ocurrido un error
         error: function () {
@@ -935,7 +936,11 @@ var idRespuesta;
 function recibirCuento() {
     var j = localStorage.getItem("var")
     alert("Disfruta del cuento!");
+<<<<<<< HEAD
     var elem = {idcuento: j} 
+=======
+    var elem = {idcuento: j} //Variable transformada en objeto para enviarla en data
+>>>>>>> 721c7f6736f5e184e15cea0eb1504b729bc65fef
     $.ajax({
             url: '/listarImg',
             type: 'POST',
@@ -1051,6 +1056,78 @@ function recibirCuento() {
 
 function recibirUsuario() {  
     alert("hola");
+    var j = localStorage.getItem("var")
+    var elem = {idusuario: j} //Variable transformada en objeto para enviarla en data
+    
+    $.ajax({
+            url: '/mostrarUsuario',
+            type: 'POST',
+            data: elem,
+            cache: false,
+          
+            success: function (data) {
+            
+            $("#usuario").val(data[0].usuario);
+            $("#pass").val(data[0].pass);
+            $("#nombre").val(data[0].nombre);
+            
+            },
+            //si ha ocurrido un error
+            error: function () {
+                console.log("error");
+
+            }
+    });
+};
+
+function actualizarUsuario() {  
+    alert("Hola actualizar");
+    
+    var j = localStorage.getItem("var")
+    
+    var elem = {idusuario: j,usuario:$("#usuario").val(),pass:$("#pass").val(),nombre:$("#nombre").val()} //Variable transformada en objeto para enviarla en data
+    
+       $.ajax({
+            url: '/actualizarUsuario',
+            type: 'POST',
+            data: elem,
+            cache: false,
+          
+            success: function (data) {
+                
+            alert("Se ha actualizado");
+            window.location = "/usuarios";
+          
+            },
+            //si ha ocurrido un error
+            error: function () {
+                console.log("error");
+
+            }
+    });
+    
+};
+
+function eliminarUsuario() {  
+    alert("Hola eliminar");
+    var j = localStorage.getItem("var")
+    var elem = {idusuario: j} //Variable transformada en objeto para enviarla en data
+     $.ajax({
+            url: '/eliminarUsuario',
+            type: 'POST',
+            data: elem,
+            cache: false,
+          
+            success: function (data) {
+            
+           alert("Se ha eliminado");
+           window.location = "/usuarios";
+            },
+            //si ha ocurrido un error
+            error: function () {
+                console.log("error");
+            }
+    });
 };
 
 function reproducir(btn) {
@@ -1092,10 +1169,14 @@ function enviar(btn) {
     window.location = "/cuento";
 };
 
+<<<<<<< HEAD
 function enviarEditar(btn) {  
     localStorage.setItem("var", btn);
     window.location = "/editarCuento";
 };
+=======
+
+>>>>>>> 721c7f6736f5e184e15cea0eb1504b729bc65fef
 
 /*CARGAR ACTIVIDADES EN LOS CUENTOS*/
 
