@@ -251,6 +251,7 @@ $("#guardar").click(function () {
                                         data: params,
                                         success: function (data) {
                                             console.log("pregunta guardada we");
+                                              window.location.href = "/";
 
                                         },
                                         error: function () {
@@ -284,7 +285,7 @@ $("#guardar").click(function () {
         
        
         
-        window.location.href = "/";
+      
     
 });
 
@@ -1194,7 +1195,7 @@ function guardarEditar(){
         
        
         
-        //window.location.href = "/";
+      
     
     
     
@@ -1203,9 +1204,9 @@ function guardarEditar(){
 
 function eliminarCuento(btn) {  
     alert("Hola eliminar cuento"+btn);
-    
-    var j = localStorage.getItem("var")
-    var elem = {idcuento: j} //Variable transformada en objeto para enviarla en data
+    //AQUIIIIIIII ESTABA EL ERROR
+    //var j = localStorage.getItem("var");
+    var elem = {idcuento: btn}; //Variable transformada en objeto para enviarla en data
     
     alert("Hola eliminar cuento");
    
@@ -1218,7 +1219,39 @@ function eliminarCuento(btn) {
           
             success: function (data) {
             
-           alert("Se ha eliminado las paginas");
+                   alert("Se ha eliminado las paginas");
+                    $.ajax({
+                        url: '/eliminarPreguntasPorCuento',
+                        type: 'POST',
+                        data: elem,
+                        cache: false,
+
+                        success: function (data) {
+
+                            alert("Se ha eliminado las preguntas");
+                            $.ajax({
+                                url: '/eliminarCuento',
+                                type: 'POST',
+                                data: elem,
+                                cache: false,
+
+                            success: function (data) {
+
+                           alert("Se ha eliminado el cuento");
+
+                        },
+                                //si ha ocurrido un error
+                                error: function () {
+                                    console.log("error");
+                        }
+                        });
+                            
+                    },
+                        //si ha ocurrido un error
+                        error: function () {
+                            console.log("error");
+                    }
+                    });
           
             },
             //si ha ocurrido un error
