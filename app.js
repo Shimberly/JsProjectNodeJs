@@ -266,6 +266,84 @@ app.post('/insertarImg', (req, res) => {
 
 });
 
+//Usuario para actualizar y eliminar
+app.post('/mostrarUsuario',(req,res)=>{
+     var client = new pg.Client(conString);
+     var idusuario=req.body.idusuario;
+    
+     client.connect(function(err) {
+        if(err) {
+            return console.error('could not connect to postgres', err);
+            return res.status(500).json({success: false, data: err});
+        }
+
+        client.query('SELECT * FROM usuario WHERE idusuario=' + idusuario + ';', function(err, result) {
+            if(err) {
+                return console.error('error running query', err);
+            }
+            
+            //console.log(result);
+             client.end();
+            return res.json(result.rows);
+        
+        });
+        
+    });
+    
+    
+});
+
+app.post('/actualizarUsuario',(req,res)=>{
+     var client = new pg.Client(conString);
+     var idusuario=req.body.idusuario;
+    
+
+    
+     client.connect(function(err) {
+        if(err) {
+            return console.error('could not connect to postgres', err);
+            return res.status(500).json({success: false, data: err});
+        }
+
+        client.query("UPDATE usuario SET usuario ='"+req.body.usuario+"', pass='"+req.body.pass+"', nombre='"+req.body.nombre+"' WHERE idusuario='" + idusuario + "';", function(err, result) {
+            
+            if(err) {
+                return console.error('error running query', err);
+            }
+            
+            //console.log(result);
+             client.end();
+            return res.json(result);
+        });
+    });
+    
+    
+});
+
+app.post('/eliminarUsuario',(req,res)=>{
+     var client = new pg.Client(conString);
+     var idusuario=req.body.idusuario;
+    
+     client.connect(function(err) {
+        if(err) {
+            return console.error('could not connect to postgres', err);
+            return res.status(500).json({success: false, data: err});
+        }
+
+        client.query('DELETE FROM usuario WHERE idusuario=' + idusuario + ';', function(err, result) {
+            
+            if(err) {
+                return console.error('error running query', err);
+            }
+            
+            //console.log(result);
+             client.end();
+            return res.json(result);
+        });
+    });
+    
+    
+});
 
 app.get('/', function (req,res) {
 	res.render('partials/index');
