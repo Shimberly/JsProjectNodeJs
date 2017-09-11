@@ -206,8 +206,8 @@
 
                 <div class="panel-body">
                     <label>Elige una actividad:</label>
-                    <input type="button" class="subirAct" value="Seleccionar Personaje">
-                    <input type="button" class="subirAct2" value="  Seleccionar Colores  " />
+                    <input type="button" class="subirAct" value="ACTIVIDAD 1">
+                    <input type="button" class="subirAct2" value="ACTIVIDAD 2" />
                 </div>
 
             </div>
@@ -216,7 +216,7 @@
             <br>
         </div>
 
-        <!-- PREGUNTA SELECCIONAR PERSONAJE-->
+        <!-- PREGUNTA 1-->
         <div id="SeleccionarP">
             <div class="col-md-12 col-sm-12">
                 <br>
@@ -227,7 +227,7 @@
 
                     <div class="panel-body">
                         <div class="col-md-8 col-sm-8 fondoAudioP">
-
+                            
                         </div>
                         <div class="col-md-4 col-sm-4">
                             <form enctype="multipart/form-data" class="formularioAP">
@@ -294,7 +294,7 @@
         </div>
 
 
-        <!-- PREGUNTA SELECCIONAR COLOR-->
+        <!-- PREGUNTA 2-->
 
         <div id="SeleccionarP2">
             <div class="col-md-12 col-sm-12">

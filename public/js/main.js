@@ -1,3 +1,4 @@
+var contCuento;
 class Usuario {
 
     constructor(obj) {
@@ -96,7 +97,6 @@ class Pregunta {
 };
 
 
-var contCuento = 6;
 
 
 
@@ -125,7 +125,7 @@ $(".nHoja").click(function () {
                     </div>"
 
     $(".carousel-inner").append(texto);
-    $(".nav-dots").append("<li data-target='#myCarousel' data-slide-to=" + contCuento + " class='nav-dot'><div class='hojas'>" + contCuento + "</div></li>");
+    $(".nav-dots").append("<li data-target='#myCarousel' data-slide-to=" + contCuento + " class='nav-dot col-md-2'><div class='hojas'>" + contCuento + "</div></li>");
     contCuento++;
     sliderDrop();
 });
@@ -200,23 +200,12 @@ $("#guardar").click(function () {
     //si todas las hojas estan llenas se puede guardar sino no
     if (flag == 0) {
 
-        //var usuarios;
-        //usuarios = leer();
-        //alert(usuarios);
+      
         var cuento = new Cuento();
         cuento.directo($("#nombre").val(), $("#descripcion").val(), $("#credito").val(), imagenesCuento, audiosCuento);
-        //alert("ver: "+ preguntas.length);
         cuento.pregunta=preguntas;
-        //alert(usuarios);
-        //alert("mi: "+usuarios.length);
         alert("Se guardo el cuento " + cuento.nombre);
-        //console.log(usuarios.length);
-        //alert("f "+usuarios[0].cuento.length);
-        //usuarios[0].cuentos.push(cuento);
-        //alert("au: "+usuarios.length);
-        /*var params = {
-        id: //aqui defines el valor del parametro
-        proveedorId: $("#proveedorId").val()*/
+       
     };
         $.ajax({
             url: '/guardarCuento',
@@ -225,7 +214,6 @@ $("#guardar").click(function () {
             cache: false,
           
             success: function (data) {
-                
                 
             },
             //si ha ocurrido un error
@@ -319,6 +307,7 @@ $("#btnGuardarP1").click(function () {
         preguntas.push(pregunta);
 
         $("#SeleccionarP").hide();
+        $('.subirAct').attr("disabled",true);
         $("#SeleccionarP2").hide();
     }
    
@@ -343,6 +332,7 @@ $("#btnGuardarP2").click(function () {
 
         $("#SeleccionarP").hide();
         $("#SeleccionarP2").hide();
+        $('.subirAct2').attr("disabled", "disabled");
     }
    
 });
@@ -690,27 +680,7 @@ function isImage(extension) {
 /// //FIN ARCHIVOS AUDIO Y SONIDO
 
 /*ARRASTRAR IMAGENES*/
-sliderDrop();
 
-function sliderDrop() {
-    $(".item").droppable({
-        drop: function (event, ui) {
-
-            if (ui.draggable.attr("id") == "draggable") {
-                //alert("img");
-                var id = ui.draggable.attr("src");
-                $(this).children().append("<img src='" + id + "'>");
-
-            } else {
-                //alert("audio");
-                var id = ui.draggable.children().attr("src");
-                $(this).children().prepend("<audio controls><source src='" + id + "' type='audio/mp3'></audio>");
-            }
-
-
-        }
-    });
-}
 
 /* LISTAR CUENTOS */
 function leerCuento() {
@@ -763,6 +733,8 @@ function leerCuento() {
                         <img id='imghome' src='" + img + "' alt=''>\
                         <p>" + elem.descripcion + "</p>\
                         </button>\
+                        <button class='btn-success' onclick='enviarEditar("+ elem.idcuento +")'>Editar</button>\
+                        <button class='btn-danger'>Eliminar</button>\
                 </div></div>");
             },
             //si ha ocurrido un error
@@ -776,6 +748,110 @@ function leerCuento() {
     });
   
 };
+
+
+/* EDITAR CUENTO LALALA*/
+function editarCuento(){
+    var j = localStorage.getItem("var");
+    
+    var elem = {idcuento: j} 
+   
+    $.ajax({
+            url: '/listarCuentoPorId',
+            type: 'POST',
+            data: elem,
+            cache: false,
+
+            success: function (data) {
+                console.log("datos id : "+data[0].nombre);
+                $("#nombre").val(data[0].nombre);
+                $("#descripcion").val(data[0].descripcion);
+                $("#credito").val(data[0].creditos);
+            },
+            //si ha ocurrido un error
+            error: function () {
+                console.log("error");
+
+            }
+        });
+    
+    
+     $.ajax({
+            url: '/listarImg',
+            type: 'POST',
+            data: elem,
+            cache: false,
+          
+            success: function (data) {
+
+                console.log(data);
+                console.log(data.length);
+                
+                
+                $.each(data, function (index, elem) {
+                    $(".carousel-inner").append("<div id="+index+" class='item'> \
+                                        <img src='" + elem.imagen + "' alt='ImagenCuento'>\
+                                        <div class='container'>\
+                                            <div class='carousel-caption'>\
+                                                <audio controls><source src='"+elem.audio+"'></audio>\
+                                            </div>\
+                                        </div>\
+                                        </div>");
+                    
+                $(".nav-dots").append("<li data-target='#myCarousel' data-slide-to="+index+" class='nav-dot col-md-2'>\
+                    <div id='hojitas"+index+"' class='hojas '><img src='" + elem.imagen + "' alt='ImagenCuento'></div>\
+                    </li>");
+                   
+                    if(index==0){
+                        $(".carousel-inner").find('.item').addClass('item active');
+                         $(".nav-dots").find('.nav-dot').addClass('nav-dot active');
+                    }
+
+                sliderDrop();
+                    
+                
+
+                    
+                    
+                });
+                
+                contCuento = $(".nav-dot").length;
+                //EDITAR PREGUNTAS
+                    
+                    $.ajax({
+                        url: '/listarPreguntas',
+                        type: 'POST',
+                        data: elem,
+                        cache: false,
+
+                        success: function (data) {
+                            $.each(data, function (index, elem) {
+                            console.log("oliii preg "+elem.audio);
+                            console.log("oliii preg "+elem.img1);
+                            console.log("oliii preg "+elem.img2);
+                            $(".fondoAudioP").append("<audio controls><source src='"+elem.audio+"'></audio>");
+                            /*if(data == undefined){
+                                
+                            }*/
+                            });
+                        },
+                        //si ha ocurrido un error
+                        error: function () {
+                            console.log("error");
+
+                        }
+                    });
+               
+            },
+            //si ha ocurrido un error
+            error: function () {
+                console.log("error");
+
+            }
+        });
+        
+    
+}
 
 
 /* LEER USUARIOS */
@@ -802,31 +878,7 @@ function leerUsuarios() {
                                 </button>\
                         </div></div>");
                   
-                /*$.ajax({
-                    url: '/listarImg',
-                    type: 'POST',
-                    data: elem,
-                    cache: false,
-
-                    success: function (data) {
-                        console.log(data);
-                        img=data[0].imagen;
-                         $("#ListaCuento").append("<div class='col-md-4 portfolio-item'>\
-                        <div id='idh4'>\
-                                <button id='btnLista' onclick='enviar("+ elem.idcuento +")'>\
-                                <h3 id='idh3'>" + elem.nombre + "</h3>\
-                                <img id='imghome' src='" + img + "' alt=''>\
-                                <p>" + elem.descripcion + "</p>\
-                                </button>\
-                        </div></div>");
-                    },
-
-                    error: function () {
-                        console.log("error");
-
-                    }
-                });
-            */});
+               });
         },
         //si ha ocurrido un error
         error: function () {
@@ -883,7 +935,7 @@ var idRespuesta;
 function recibirCuento() {
     var j = localStorage.getItem("var")
     alert("Disfruta del cuento!");
-    var elem = {idcuento: j} //REVISSSAAAAARRRRRRRRR
+    var elem = {idcuento: j} 
     $.ajax({
             url: '/listarImg',
             type: 'POST',
@@ -995,69 +1047,6 @@ function recibirCuento() {
         });
     
     
-   /* $.each(userArray[0].cuentos, function (index, elem) {
-        if (elem.nombre == j) {
-            
-            $(".cuentoTitulo").html("<a href='#'>"+elem.nombre+"</a>");
-            $(".descripcion").html(elem.descripcion);
-            $(".credito").html("Créditos: "+elem.credito);
-            $.each(elem.pagina, function (index, elem) {
-                $(".carousel-inner").append("<div class='item'> \
-                                    <img src='" + elem.imagen + "' alt='ImagenCuento'>\
-                                    <div class='container'>\
-                                        <div class='carousel-caption'>\
-                                            <audio controls class='ocultar'><source src='"+elem.audio+"'></audio>\
-                                            <button id='reproducir' onclick='reproducir(this)'><img src='images/repro.png'></button>\
-                                        </div>\
-                                    </div>\
-                                    </div>");
-            if(index==0){
-                $(".carousel-inner").find('.item').addClass('item active');
-            }
-                
-            
-            
-            
-           // $(".carousel-indicators").append(" <li data-target='#myCarousel' data-slide-to='"+index+"'></li>");
-        });
-           
-            $.each(elem.pregunta, function (i, elem2) {
-              $(".carousel-inner").append("<div class='item'> \
-                                    <img src='images/fondoPregunta.jpg' alt='ImagenCuento'>\
-                                    <div class='container'>\
-                                        <div class='carousel-caption'>\
-                                            <h3>PREGUNTA "+(i+1)+"</h3>\
-                                            <button id='reproducir' onclick='mst("+(i+1)+")'><img src='images/interrogacion.png'></button>\
-                                        </div>\
-                                    </div>\
-                                    </div>");
-                
-                $(".cntCuento").append("<div id='preguntas"+(i+1)+"' class='ocultar'>\
-                          <div class='panel panel-default'>\
-                                <div class='panel-heading'>\
-                                    <h3 class='panel-title'>ACTIVIDAD</h3>\
-                                </div>\
-                                <div class='panel-body'>\
-                                        <div class='col-md-4 col-sm-4 fondoAudio'>\
-                                            <br><br><br>\
-                                            <audio controls id='audioPregunta' class='ocultar'><source src='"+ elem2.audio+"'></audio>\
-                                            <button id='reproducirPre"+(i+1)+"' onclick='reproducirPregunta"+(i+1)+"()'><img src='images/repro.png'></button>\
-                                        </div>\
-                                        <div class='col-md-8 col-sm-8 fondoPreguntas'>\
-                                            <button id='valImg1' onclick = 'validarimg1()'><img id='img1' src='" + elem2.img1 + "' alt=''></button>\
-                                            <button id='valImg2' onclick = 'validarimg2()'><img id='img2' src='" + elem2.img2 + "' alt=''></button>\
-                                        </div>\
-                                </div>\
-                            </div>\
-                      </div>");
-               
-                idRespuesta = elem2.respuesta;
-            });
-        }
-       
-       });*/
-
-
 };
 
 function recibirUsuario() {  
@@ -1103,6 +1092,11 @@ function enviar(btn) {
     window.location = "/cuento";
 };
 
+function enviarEditar(btn) {  
+    localStorage.setItem("var", btn);
+    window.location = "/editarCuento";
+};
+
 /*CARGAR ACTIVIDADES EN LOS CUENTOS*/
 
 function validarimg1(){
@@ -1130,4 +1124,43 @@ function validarimg2(){
         $("#valImg1").addClass('pintarRspCorrecta');
         
        }
+}
+sliderDrop();
+
+function sliderDrop() {
+    $(".item").droppable({
+        drop: function (event, ui) {
+
+            if (ui.draggable.attr("id") == "draggable") {
+                //alert("img");
+                var id = ui.draggable.attr("src");
+                if($(this).find("img").attr("src")==undefined){
+                    //alert("desde item undefined");
+                    $(this).children().append("<img src='" + id + "'>");
+                }else{
+                    //alert("desde item lleno");
+                    $(this).find("img").attr("src",id);
+                }
+                var numero=$(this).attr("id");
+                alert(numero);
+                $("#hojitas"+numero).children().attr("src",id);
+
+            } else {
+                //alert("audio");
+                
+                
+                var id = ui.draggable.children().attr("src");
+                //alert($(this).find("audio").children().attr("src"));
+                if($(this).find("audio").children().attr("src")==undefined){
+                    //alert("desde item undefined");
+                    $(this).children().prepend("<audioaudio controls><source src='" + id + "' type='audio/mp3'></audio>");
+                }else{
+                    //alert("desde item lleno");
+                    $(this).find("audio").attr("src",id);
+                }
+            }
+
+
+        }
+    });
 }
