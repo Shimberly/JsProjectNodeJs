@@ -267,6 +267,76 @@ app.post('/insertarImg', (req, res) => {
 
 });
 
+
+
+app.post('/eliminarPreguntasPorCuento', (req, res, next) => {
+    var client = new pg.Client(conString);
+     var idcuento=req.body.idcuento;
+    
+    client.connect(function(err) {
+        if(err) {
+            return console.error('could not connect to postgres', err);
+            return res.status(500).json({success: false, data: err});
+        }
+       
+        client.query('DELETE FROM pregunta WHERE idcuento=' + idcuento + ';', function(err, result) {
+            if(err) {
+                return console.error('error running query', err);
+            }
+            
+            //console.log(result);
+            client.end();
+            return res.json(result.rows);
+        });
+    });
+});
+
+app.post('/eliminarPaginasPorCuento', (req, res, next) => {
+    var client = new pg.Client(conString);
+     var idcuento=req.body.idcuento;
+    
+    client.connect(function(err) {
+        if(err) {
+            return console.error('could not connect to postgres', err);
+            return res.status(500).json({success: false, data: err});
+        }
+       
+        client.query('DELETE FROM pagina WHERE idcuento=' + idcuento + ';', function(err, result) {
+            if(err) {
+                return console.error('error running query', err);
+            }
+            
+            //console.log(result);
+            client.end();
+            return res.json(result.rows);
+        });
+    });
+});
+
+app.post('/eliminarCuento',(req,res)=>{
+     var client = new pg.Client(conString);
+     var idcuento=req.body.idcuento;
+    
+     client.connect(function(err) {
+        if(err) {
+            return console.error('could not connect to postgres', err);
+            return res.status(500).json({success: false, data: err});
+        }
+
+        client.query('DELETE FROM cuento WHERE idcuento=' + idcuento + ';', function(err, result) {
+            
+            if(err) {
+                return console.error('error running query', err);
+            }
+            
+            //console.log(result);
+             client.end();
+            return res.json(result);
+        });
+    });
+});
+
+
 //Usuario para actualizar y eliminar
 app.post('/mostrarUsuario',(req,res)=>{
      var client = new pg.Client(conString);
