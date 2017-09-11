@@ -1078,7 +1078,6 @@ function editarCuento(){
 }
 
 
-<<<<<<< HEAD
 //GUARDAR EDITAR CUENTO
 function guardarEditar(){
     
@@ -1202,7 +1201,6 @@ function guardarEditar(){
     
 }
 
-=======
 function eliminarCuento(btn) {  
     alert("Hola eliminar cuento"+btn);
     
@@ -1233,8 +1231,6 @@ function eliminarCuento(btn) {
  
   
 };
->>>>>>> 002f446027643570cfa13f81e0f764899e62a845
-
 /* LEER USUARIOS */
 function leerUsuarios() {
      var datos="";
