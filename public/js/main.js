@@ -939,7 +939,7 @@ function leerCuento() {
                         <p>" + elem.descripcion + "</p>\
                         </button>\
                         <button class='btn-success' onclick='enviarEditar("+ elem.idcuento +")'>Editar</button>\
-                        <button class='btn-danger'>Eliminar</button>\
+                        <button class='btn-danger' onclick='eliminarCuento("+elem.idcuento+")'>Eliminar</button>\
                 </div></div>");
             },
             //si ha ocurrido un error
@@ -949,7 +949,6 @@ function leerCuento() {
             }
         });
         
-       
     });
   
 };
@@ -1079,6 +1078,7 @@ function editarCuento(){
 }
 
 
+<<<<<<< HEAD
 //GUARDAR EDITAR CUENTO
 function guardarEditar(){
     
@@ -1202,6 +1202,72 @@ function guardarEditar(){
     
 }
 
+=======
+function eliminarCuento(btn) {  
+    alert("Hola eliminar cuento"+btn);
+    
+    var j = localStorage.getItem("var")
+    var elem = {idcuento: j} //Variable transformada en objeto para enviarla en data
+    
+    alert("Hola eliminar cuento");
+   
+    
+    $.ajax({
+            url: '/eliminarPaginasPorCuento',
+            type: 'POST',
+            data: elem,
+            cache: false,
+          
+            success: function (data) {
+            
+           alert("Se ha eliminado las paginas");
+          
+            },
+            //si ha ocurrido un error
+            error: function () {
+                console.log("error");
+            }
+    });
+    
+     $.ajax({
+            url: '/eliminarPreguntasPorCuento',
+            type: 'POST',
+            data: elem,
+            cache: false,
+          
+            success: function (data) {
+            
+           alert("Se ha eliminado las preguntas");
+          
+            },
+            //si ha ocurrido un error
+            error: function () {
+                console.log("error");
+            }
+    });
+    
+    
+     $.ajax({
+            url: '/eliminarCuento',
+            type: 'POST',
+            data: elem,
+            cache: false,
+          
+            success: function (data) {
+            
+           alert("Se ha eliminado las preguntas");
+           window.location = "/listarCuentos";
+            },
+            //si ha ocurrido un error
+            error: function () {
+                console.log("error");
+            }
+    });
+    
+ 
+  
+};
+>>>>>>> 002f446027643570cfa13f81e0f764899e62a845
 
 /* LEER USUARIOS */
 function leerUsuarios() {
