@@ -135,10 +135,10 @@
                     </div>
                     <div class="col-md-4 col-sm-4">
                         <form enctype="multipart/form-data" method="post" class="formularioI">
-                            <input name="archivo" type="file" id="imagen" />
+                            <input name="archivo" type="file" id="imagen"/>
                             <br />
                             <br />
-                            <input type="button" class="subirImg" value="Subir imagen" />
+                            <input type="button" class="subirImg btn-success" value="Subir imagen" />
                             <br />
                         </form>
                         <!--div para visualizar mensajes-->
@@ -175,7 +175,7 @@
                             <input name="archivo" type="file" id="audio" />
                             <br />
                             <br />
-                            <input type="button" class="subirAudio" value="Subir audio" />
+                            <input type="button" class="subirAudio btn-success" value="Subir audio" />
                             <br />
                         </form>
                         <!--div para visualizar mensajes-->
@@ -234,7 +234,7 @@
                                 <input name="archivo" type="file" id="audioAP" />
                                 <br>
                                 <br>
-                                <input type="button" class="subirAudioP" value="Subir audio" />
+                                <input type="button" class="subirAudioP btn-success" value="Subir audio" />
                                 <br>
                             </form>
                             <!--div para visualizar mensajes-->
@@ -251,7 +251,7 @@
                                 <input name="archivo" type="file" id="imagen1" />
                                 <br>
                                 <br>
-                                <input type="button" class="subirImgP" value="Subir imagen" />
+                                <input type="button" class="subirImgP btn-success" value="Subir imagen" />
                                 <br>
                             </form>
 
@@ -267,7 +267,7 @@
                                 <input name="archivo" type="file" id="imagen2" />
                                 <br>
                                 <br>
-                                <input type="button" class="subirImgP2" value="Subir imagen" />
+                                <input type="button" class="subirImgP2 btn-success" value="Subir imagen" />
                                 <br>
                             </form>
 
@@ -313,7 +313,7 @@
                                 <input name="archivo" type="file" id="audioAP2" />
                                 <br>
                                 <br>
-                                <input type="button" class="subirAudioP2" value="Subir audio" />
+                                <input type="button" class="subirAudioP2 btn-success" value="Subir audio" />
                                 <br>
                             </form>
                             <!--div para visualizar mensajes-->
@@ -329,7 +329,7 @@
                                 <input name="archivo" type="file" id="imagen3" />
                                 <br>
                                 <br>
-                                <input type="button" class="subirImg2P" value="Subir imagen" />
+                                <input type="button" class="subirImg2P btn-success" value="Subir imagen" />
                                 <br>
                             </form>
                             <!--div para visualizar mensajes-->
@@ -345,7 +345,7 @@
                                 <input name="archivo" type="file" id="imagen4" />
                                 <br>
                                 <br>
-                                <input type="button" class="subirImg2P2" value="Subir imagen" />
+                                <input type="button" class="subirImg2P2 btn-success" value="Subir imagen" />
                                 <br>
                             </form>
                             <!--div para visualizar mensajes-->
@@ -365,7 +365,7 @@
 
                         <div class="col-md-4 col-sm-4">
 
-                            <button type="button" id="btnGuardarP2">Guardar</button>
+                            <button type="button" id="btnGuardarP2 btn-success">Guardar</button>
                         </div>
                     </div>
 

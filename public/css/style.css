@@ -63,7 +63,7 @@ body {
 /*Inicio Pagina Crear Cuento*/
 
 .crearCuento {
-    background-color: #ffe001;
+    background-image: url(/images/fondo5.jpg);
 }
 
 /*slide crear cuento*/
@@ -330,7 +330,9 @@ audio source{
 
 /*Fin Pagina Crear Cuento*/
 #mainNav{
-    background-color:  #0081eb;   
+    font-size: 25px;
+    font-weight: bold;
+    
 }
 /* pauul */
 .cuentoTitulo{
@@ -358,9 +360,10 @@ audio source{
 #estilofooter {
     background-color: #fcb913;
     color: white;
-    position: absolute;
+    padding-bottom: 51px;
     bottom: 0;
     width: 100%;
+    margin: 0 auto;
 }
 #estilofooter2 {
     background-color: #0081eb;
@@ -711,4 +714,7 @@ fieldset {
 
 input{
     font-size: 20px;
+}
+.logo{
+    width: 100px;
 }
