@@ -230,7 +230,7 @@ $("#guardar").click(function () {
             success: function (data) {
       
                 var idcuento = data[0].idcuento+1;
-               
+              
                  $.each(cuento.pagina, function (i, emp) {
                         var params = {
                             id: idcuento,
@@ -254,6 +254,7 @@ $("#guardar").click(function () {
                      
                  });
                 $.each(cuento.pregunta, function (i, emp) {
+                    alert("repetir preg");
                         var params = {
                             id: idcuento,
                             pregunta: emp,
@@ -304,11 +305,12 @@ $("#btnGuardarP1").click(function () {
    
         var pregunta = new Pregunta();
         pregunta.directo(img1,img2, audio, respuesta);
-        preguntas.push(pregunta);
-
+        preguntas[0] = pregunta;
+        
         $("#SeleccionarP").hide();
         $('.subirAct').attr("disabled",true);
         $("#SeleccionarP2").hide();
+        $("#btnGuardarP1").attr("disabled", true);
     }
    
 });
@@ -328,11 +330,32 @@ $("#btnGuardarP2").click(function () {
    
         var pregunta = new Pregunta();
         pregunta.directo(img1,img2, audio, respuesta);
-        preguntas.push(pregunta);
+        preguntas[1] = pregunta;
 
         $("#SeleccionarP").hide();
         $("#SeleccionarP2").hide();
         $('.subirAct2').attr("disabled", "disabled");
+    }
+   
+});
+$("#btnGuardar2P2").click(function () {
+    
+    var img1 = $(".fondo2P1").find("img").attr("src");
+    var img2 = $(".fondo2P2").find("img").attr("src");
+    var audio = $(".fondoAudioP2").find("audio").children().attr("src");
+    var respuesta = $(".respuesta2").val();
+    
+    if(img1 == undefined || img2 == undefined || audio == undefined || respuesta == undefined){
+        alert("Completa la actividad");
+        
+    }else{
+        alert("Se guardo la actividad!");
+   
+        var pregunta = new Pregunta();
+        pregunta.directo(img1,img2, audio, respuesta);
+        preguntas.push(pregunta);
+
+
     }
    
 });
@@ -558,7 +581,45 @@ $('.subirAudioP').click(function () {
         }
     });
 });
-
+$('.subirAudioP2').click(function () {
+    //información del formulario
+    var formData = new FormData($(".formularioA2P")[0]);
+    var message = "";
+    //hacemos la petición ajax  
+    $.ajax({
+        url: '/subir',
+        type: 'POST',
+        // Form data
+        //datos del formulario
+        data: formData,
+        //necesario para subir archivos via ajax
+        cache: false,
+        contentType: false,
+        processData: false,
+        //mientras enviamos el archivo
+        beforeSend: function () {
+            message = $("<span\>Subiendo el audio, por favor espere...</span>");
+            showMessageP2(message)
+        },
+        //una vez finalizado correctamente
+        success: function (data) {
+            message = $("<span\>El audio ha subido correctamente.</span>");
+            showMessageP2(message);
+            if (isImage(fileExtension)) {
+                $(".fondoAudioP2").append("<audio controls><source src='images/cuentos/" + data + "' type='audio/mp3'></audio>");
+                console.log(data);
+                /*<audio controls>
+                              <source src="../img/cuentos/000938162_prev.mp3" type="audio/mp3">
+                </audio>*/
+            }
+        },
+        //si ha ocurrido un err        
+        error: function () {
+            message = $("<span>Ha ocurrido un error.</span>");
+            showMessageP2(message);
+        }
+    });
+});
 //CARGA DE ARCHIVO PREGUNTA 1
 
 //al enviar el formulario
@@ -637,6 +698,81 @@ $('.subirImgP2').click(function () {
     });
 });
 
+$('.subirImg2P').click(function () {
+    //información del formulario
+    var formData = new FormData($(".formularioA2P2")[0]);
+    var message = "";
+    //hacemos la petición ajax  
+    $.ajax({
+        url: '/subir',
+        type: 'POST',
+        // Form data
+        //datos del formulario
+        data: formData,
+        //necesario para subir archivos via ajax
+        cache: false,
+        contentType: false,
+        processData: false,
+        //mientras enviamos el archivo
+        beforeSend: function () {
+            // message = $("<span>Subiendo la imagen, por favor espere...</span>");
+            //showMessageE(message)
+        },
+        //una vez finalizado correctamente
+        success: function (data) {
+            // message = $("<span>La imagen ha subido correctamente.</span>");
+            //showMessageE(message);
+            if (isImage(fileExtension)) {
+                $(".fondoP1").html("<img id='img1' class='ui-widget-content' src='images/cuentos/" + data + "' />");
+
+            }
+        },
+        //si ha ocurrido un error
+        error: function () {
+            // message = $("<span>Ha ocurrido un error.</span>");
+            //showMessageE(message);
+        }
+    });
+});
+
+
+$('.subirImg2P2').click(function () {
+    //información del formulario
+    var formData = new FormData($(".formularioA2P3")[0]);
+    var message = "";
+    //hacemos la petición ajax  
+    $.ajax({
+        url: '/subir',
+        type: 'POST',
+        // Form data
+        //datos del formulario
+        data: formData,
+        //necesario para subir archivos via ajax
+        cache: false,
+        contentType: false,
+        processData: false,
+        //mientras enviamos el archivo
+        beforeSend: function () {
+            // message = $("<span>Subiendo la imagen, por favor espere...</span>");
+            //showMessageE(message)
+        },
+        //una vez finalizado correctamente
+        success: function (data) {
+            // message = $("<span>La imagen ha subido correctamente.</span>");
+            //showMessageE(message);
+            if (isImage(fileExtension)) {
+                $(".fondoP2").html("<img id='img2' class='ui-widget-content' src='images/cuentos/" + data + "' />");
+
+            }
+        },
+        //si ha ocurrido un error
+        error: function () {
+            message = $("<span>Ha ocurrido un error.</span>");
+            //showMessageE(message);
+        }
+    });
+});
+
 
 //como la utilizamos demasiadas veces, creamos una función para 
 //evitar repetición de código
@@ -654,7 +790,10 @@ function showMessageP(message) {
     $(".messagesP").html("").show();
     $(".messagesP").html(message);
 }
-
+function showMessageP2(message) {
+    $(".messagesP2").html("").show();
+    $(".messagesP2").html(message);
+}
 //comprobamos si el archivo a subir es una imagen
 //para visualizarla una vez haya subido
 function isImage(extension) {
@@ -726,6 +865,7 @@ function leerCuento() {
 
                 //console.log(data);
                 img=data[0].imagen;
+                
                  $("#ListaCuento").append("<div class='col-md-4 portfolio-item'>\
                 <div id='idh4'>\
                         <button id='btnLista' onclick='enviar("+ elem.idcuento +")'>\
@@ -825,13 +965,18 @@ function editarCuento(){
 
                         success: function (data) {
                             $.each(data, function (index, elem) {
-                            console.log("oliii preg "+elem.audio);
-                            console.log("oliii preg "+elem.img1);
-                            console.log("oliii preg "+elem.img2);
-                            $(".fondoAudioP").append("<audio controls><source src='"+elem.audio+"'></audio>");
-                            /*if(data == undefined){
-                                
-                            }*/
+                                console.log("oliii preg "+elem.audio);
+                                console.log("oliii preg "+elem.img1);
+                                console.log("oliii preg "+elem.img2);
+                                $(".fondoAudioP").append("<audio controls><source src='" + elem.audio + "' type='audio/mp3'></audio>");
+                                $(".fondoP1").html("<img id='img1' class='ui-widget-content' src='" + elem.img1 + "' />");
+                                $(".fondoP2").html("<img id='img1' class='ui-widget-content' src='" + elem.img2 + "' />");
+                                $(".respuesta").val(elem.respuesta);
+                                //$(".fondoAudioP").append("uweqhibdnasjdgausjdqiw");
+                                //$(".fondoAudioP").append("<audio controls><source src='"+elem.audio+"'></audio>");
+                                /*if(data == undefined){
+
+                                }*/
                             });
                         },
                         //si ha ocurrido un error
@@ -849,7 +994,6 @@ function editarCuento(){
             }
         });
         
-    
 }
 
 
@@ -1101,10 +1245,6 @@ function recibirCuento() {
                
                 idRespuesta = elem2.respuesta;
             });
-        
-       
- 
-                
          },
             //si ha ocurrido un error
             error: function () {
@@ -1193,8 +1333,6 @@ function eliminarUsuario() {
 };
 
 function reproducir(btn) {
-   //$(btn).addClass('ocultar');
-   //$(btn).parent().find('audio').attr( "autoplay", "autoplay" );
    $(btn).parent().find('audio')[0].play();
 };
 function reproducirPregunta1(btn) {
@@ -1283,7 +1421,7 @@ function sliderDrop() {
                     $(this).find("img").attr("src",id);
                 }
                 var numero=$(this).attr("id");
-                alert(numero);
+                //alert(numero);
                 $("#hojitas"+numero).children().attr("src",id);
 
             } else {
@@ -1294,7 +1432,7 @@ function sliderDrop() {
                 //alert($(this).find("audio").children().attr("src"));
                 if($(this).find("audio").children().attr("src")==undefined){
                     //alert("desde item undefined");
-                    $(this).children().prepend("<audioaudio controls><source src='" + id + "' type='audio/mp3'></audio>");
+                    $(this).children().prepend("<audio controls><source src='" + id + "' type='audio/mp3'></audio>");
                 }else{
                     //alert("desde item lleno");
                     $(this).find("audio").attr("src",id);
@@ -1304,4 +1442,9 @@ function sliderDrop() {
 
         }
     });
+}
+
+function crearCuento(){
+    
+    contCuento=6;
 }

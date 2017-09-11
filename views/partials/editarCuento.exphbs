@@ -156,14 +156,10 @@
 
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h3 class="panel-title">ACTIVIDADES</h3>
+                    <h2 class="panel-title">ACTIVIDADES</h2>
                 </div>
 
-                <div class="panel-body">
-                    <label>Elige una actividad:</label>
-                    <input type="button" class="subirAct" value="ACTIVIDAD 1">
-                    <input type="button" class="subirAct2" value="ACTIVIDAD 2" />
-                </div>
+                
 
             </div>
             <br>
@@ -172,7 +168,7 @@
         </div>
 
         <!-- PREGUNTA 1-->
-        <div id="SeleccionarP">
+        <div id="editarP">
             <div class="col-md-12 col-sm-12">
                 <br>
                 <div class="panel panel-default">
@@ -182,7 +178,7 @@
 
                     <div class="panel-body">
                         <div class="col-md-8 col-sm-8 fondoAudioP">
-                            <p>LOREMAJKSDAJKSDBAKDJABSD</p>
+                            
                         </div>
                         <div class="col-md-4 col-sm-4">
                             <form enctype="multipart/form-data" class="formularioAP">
@@ -251,7 +247,7 @@
 
         <!-- PREGUNTA 2-->
 
-        <div id="SeleccionarP2">
+        <div id="editarP2">
             <div class="col-md-12 col-sm-12">
                 <br>
                 <div class="panel panel-default">
@@ -260,19 +256,19 @@
                     </div>
 
                     <div class="panel-body">
-                        <div class="col-md-8 col-sm-8 fondoAudioP">
+                        <div class="col-md-8 col-sm-8 fondoAudioP2">
 
                         </div>
                         <div class="col-md-4 col-sm-4">
-                            <form enctype="multipart/form-data" class="formularioAP">
+                            <form enctype="multipart/form-data" class="formularioA2P">
                                 <input name="archivo" type="file" id="audioAP2" />
                                 <br>
                                 <br>
-                                <input type="button" class="subirAudioP" value="Subir audio" />
+                                <input type="button" class="subirAudioP2" value="Subir audio" />
                                 <br>
                             </form>
                             <!--div para visualizar mensajes-->
-                            <div class="messagesP"></div>
+                            <div class="messagesP2"></div>
                             <br>
                             <br>
                         </div>
@@ -280,34 +276,34 @@
                     <hr>
                     <div class="panel-body">
                         <div class="col-md-4 col-sm-4">
-                            <form enctype="multipart/form-data" class="formularioAP2">
+                            <form enctype="multipart/form-data" class="formularioA2P2">
                                 <input name="archivo" type="file" id="imagen3" />
                                 <br>
                                 <br>
-                                <input type="button" class="subirImgP" value="Subir imagen" />
+                                <input type="button" class="subirImg2P" value="Subir imagen" />
                                 <br>
                             </form>
                             <!--div para visualizar mensajes-->
 
                             <!--div para visualizar en el caso de imagen-->
                             <div class="showImage"></div>
-                            <div class="col-md-4 col-sm-4 fondoP1">
+                            <div class="col-md-4 col-sm-4 fondo2P1">
                             </div>
                         </div>
 
                         <div class="col-md-4 col-sm-4">
-                            <form enctype="multipart/form-data" class="formularioAP3">
+                            <form enctype="multipart/form-data" class="formularioA2P3">
                                 <input name="archivo" type="file" id="imagen4" />
                                 <br>
                                 <br>
-                                <input type="button" class="subirImgP2" value="Subir imagen" />
+                                <input type="button" class="subirImg2P2" value="Subir imagen" />
                                 <br>
                             </form>
                             <!--div para visualizar mensajes-->
 
                             <!--div para visualizar en el caso de imagen-->
                             <div class="showImage"></div>
-                            <div class="col-md-4 col-sm-4 fondoP2">
+                            <div class="col-md-4 col-sm-4 fondo2P2">
 
                             </div>
                         </div>
@@ -315,12 +311,12 @@
                         <div class="col-md-4 col-sm-4">
                             <label>¿Que numero de imagen es correcta?</label>
 
-                            <input type="text" name="respuesta" class="respuesta">
+                            <input type="text" name="respuesta" class="respuesta2">
                         </div>
 
                         <div class="col-md-4 col-sm-4">
 
-                            <button type="button" id="btnGuardarP2">Guardar</button>
+                            <button type="button" id="btnGuardar2P2">Guardar</button>
                         </div>
                     </div>
 

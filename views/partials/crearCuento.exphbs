@@ -1,4 +1,4 @@
-<body class="crearCuento">
+<body class="crearCuento" onload='crearCuento()'>
     <nav id="mainNav" class="navbar navbar-default navbar-fixed-top navbar-custom">
         <div class="container">
 
@@ -88,24 +88,24 @@
         <!-- Mini Hojas -->
 
         <div class="col-md-10 col-sm-10">
-            <div class="nav-dots">
+            <div class="nav-dots row">
 
-                <li data-target="#myCarousel" data-slide-to="0" class="active nav-dot">
+                <li data-target="#myCarousel" data-slide-to="0" class="active nav-dot col-md-2">
                     <div class="hojas">Portada</div>
                 </li>
-                <li data-target="#myCarousel" data-slide-to="1" class="nav-dot">
+                <li data-target="#myCarousel" data-slide-to="1" class="nav-dot col-md-2">
                     <div class="hojas ">1</div>
                 </li>
-                <li data-target="#myCarousel" data-slide-to="2" class="nav-dot">
+                <li data-target="#myCarousel" data-slide-to="2" class="nav-dot col-md-2">
                     <div class="hojas">2</div>
                 </li>
-                <li data-target="#myCarousel" data-slide-to="3" class="nav-dot">
+                <li data-target="#myCarousel" data-slide-to="3" class="nav-dot col-md-2">
                     <div class="hojas">3</div>
                 </li>
-                <li data-target="#myCarousel" data-slide-to="4" class="nav-dot">
+                <li data-target="#myCarousel" data-slide-to="4" class="nav-dot col-md-2">
                     <div class="hojas">4</div>
                 </li>
-                <li data-target="#myCarousel" data-slide-to="5" class="nav-dot">
+                <li data-target="#myCarousel" data-slide-to="5" class="nav-dot col-md-2">
                     <div class="hojas">5</div>
                 </li>
 
