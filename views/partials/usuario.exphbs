@@ -1,7 +1,7 @@
 <body onload="recibirUsuario()">
 
     <!-- Navigation -->
-    <nav id="mainNav" class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <nav id="mainNavNos" class="navbar navbar-default navbar-custom navbar-fixed-top">
         <div class="container">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header page-scroll">
@@ -51,14 +51,6 @@
   </form>
 </div>
 
-   
-    <footer id="estilofooter2" class="text-center">
-        <div class="col-lg-12">
-            <p>ESPOL 2017</p>
-            
-        </div>
-
-    </footer>
 
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>

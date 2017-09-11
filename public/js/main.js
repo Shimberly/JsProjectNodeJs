@@ -270,7 +270,7 @@ $("#guardar").click(function () {
 
                         }
                     });
-                alert("Se guardo el cuento " + cuento.nombre);
+                alert("Se guardó el cuento " + cuento.nombre);
                 window.location.href = "/";
             },
             //si ha ocurrido un error
@@ -293,7 +293,7 @@ $("#btnGuardarP1").click(function () {
         alert("Completa la actividad");
         
     }else{
-        alert("Se guardo la actividad!");
+        alert("Se guardó la actividad!");
    
         var pregunta = new Pregunta();
         pregunta.directo(img1,img2, audio, respuesta);
@@ -318,7 +318,7 @@ $("#btnGuardarP2").click(function () {
         alert("Completa la actividad");
         
     }else{
-        alert("Se guardo la actividad!");
+        alert("Se guardó la actividad!");
    
         var pregunta = new Pregunta();
         pregunta.directo(img1,img2, audio, respuesta);
@@ -341,7 +341,7 @@ $("#btnGuardar2P1").click(function () {
         alert("Completa la actividad");
         
     }else{
-        alert("Se guardo la actividad!");
+        alert("Se guardó la actividad!");
    
         var pregunta = new Pregunta();
         pregunta.directo(img1,img2, audio, respuesta);
@@ -362,7 +362,7 @@ $("#btnGuardar2P2").click(function () {
         alert("Completa la actividad");
         
     }else{
-        alert("Se guardo la actividad!");
+        alert("Se guardó la actividad!");
    
         var pregunta = new Pregunta();
         pregunta.directo(img1,img2, audio, respuesta);
@@ -925,12 +925,12 @@ function leerCuento() {
                 img=data[0].imagen;
                 
                  $("#ListaCuento").append("<div class='col-md-4 portfolio-item'>\
-                <div id='idh4'>\
+                <div id='idh5'>\
                         <button id='btnLista' onclick='enviar("+ elem.idcuento +")'>\
                         <h3 id='idh3'>" + elem.nombre + "</h3>\
                         <img id='imghome' src='" + img + "' alt=''>\
                         <p>" + elem.descripcion + "</p>\
-                        </button>\
+                        </button><br>\
                         <button class='btn-success' onclick='enviarEditar("+ elem.idcuento +")'>Editar</button>\
                         <button class='btn-danger' onclick='eliminarCuento("+elem.idcuento+")'>Eliminar</button>\
                 </div></div>");
@@ -1083,8 +1083,8 @@ function guardarEditar(){
     $(".escenas").each(function (index) {
         var rutaI = $(this).parent().find("img").attr("src");
         var rutaA = $(this).children().find("source").attr("src");
-        alert("I "+ rutaI);
-        alert("ruta: "+rutaA);
+        //alert("I "+ rutaI);
+        //alert("ruta: "+rutaA);
         if (rutaI == undefined || rutaA == undefined) {
             alert("Llena todas las hojas.");
             flag++;
@@ -1103,7 +1103,7 @@ function guardarEditar(){
         var cuento = new Cuento();
         cuento.directo($("#nombre").val(), $("#descripcion").val(), $("#credito").val(), imagenesCuento, audiosCuento);
         cuento.pregunta=preguntas;
-        alert("Se guardo el cuento " + cuento.nombre);
+        
         var params = {
             cuento : cuento,
             idcuento: $("#idcuento").val()
@@ -1179,7 +1179,7 @@ function guardarEditar(){
                                                             });
 
                                                      });
-                                                 alert("Se edito el cuento");
+                                                alert("Se editó el cuento " + cuento.nombre);
                                                 window.location.href = "/";
                                                
                                             },
@@ -1211,12 +1211,12 @@ function guardarEditar(){
             }
 
 function eliminarCuento(btn) {  
-    alert("Hola eliminar cuento"+btn);
+    //alert("Hola eliminar cuento"+btn);
     //AQUIIIIIIII ESTABA EL ERROR
     //var j = localStorage.getItem("var");
     var elem = {idcuento: btn}; //Variable transformada en objeto para enviarla en data
     
-    alert("Hola eliminar cuento");
+    //alert("Hola eliminar cuento");
    
     
     $.ajax({
@@ -1227,7 +1227,7 @@ function eliminarCuento(btn) {
           
             success: function (data) {
             
-                   alert("Se ha eliminado las paginas");
+                   //alert("Se ha eliminado las paginas");
                     $.ajax({
                         url: '/eliminarPreguntasPorCuento',
                         type: 'POST',
@@ -1236,7 +1236,7 @@ function eliminarCuento(btn) {
 
                         success: function (data) {
 
-                            alert("Se ha eliminado las preguntas");
+                            //alert("Se ha eliminado las preguntas");
                             $.ajax({
                                 url: '/eliminarCuento',
                                 type: 'POST',
@@ -1245,7 +1245,8 @@ function eliminarCuento(btn) {
 
                             success: function (data) {
 
-                           alert("Se ha eliminado el cuento");
+                            alert("Se ha eliminado el cuento!");
+                            window.location = "/listarCuentos";
 
                         },
                                 //si ha ocurrido un error
@@ -1311,16 +1312,16 @@ function leerUsuarios() {
 //ENVIAR USUARIO PARA SU LECTURA INDIVIDUAL
 
 function enviarUsuario(btn) {  
-    alert("btn: "+btn);
+    //alert("btn: "+btn);
     localStorage.setItem("var", btn);
     window.location = "/usuario";
 };
 
 
 function guardarUsuario() {
-    alert( "usuario"+ $("#usuario").val());
-    alert( "pass"+ $("#pass").val());
-    alert( "nobre"+ $("#nombre").val());
+    //alert( "usuario"+ $("#usuario").val());
+    //alert( "pass"+ $("#pass").val());
+    //alert( "nobre"+ $("#nombre").val());
     var params ={
         usuario:$("#usuario").val(),
         pass:$("#pass").val(),
@@ -1337,7 +1338,8 @@ function guardarUsuario() {
             
             console.log(data);
             datos=data;
-             window.location = "/usuarios";
+            alert("Se guardó el usuario "+ $("#usuario").val());
+            window.location = "/usuarios";
         },
         //si ha ocurrido un error
         error: function () {
@@ -1467,7 +1469,7 @@ function recibirCuento() {
 };
 
 function recibirUsuario() {  
-    alert("hola");
+    //alert("hola");
     var j = localStorage.getItem("var")
     var elem = {idusuario: j} //Variable transformada en objeto para enviarla en data
     
@@ -1493,7 +1495,7 @@ function recibirUsuario() {
 };
 
 function actualizarUsuario() {  
-    alert("Hola actualizar");
+    //alert("Hola actualizar");
     
     var j = localStorage.getItem("var")
     
@@ -1507,7 +1509,7 @@ function actualizarUsuario() {
           
             success: function (data) {
                 
-            alert("Se ha actualizado");
+            alert("Se ha actualizado el usuario "+$("#usuario").val());
             window.location = "/usuarios";
           
             },
@@ -1521,7 +1523,7 @@ function actualizarUsuario() {
 };
 
 function eliminarUsuario() {  
-    alert("Hola eliminar");
+    //alert("Hola eliminar");
     var j = localStorage.getItem("var")
     var elem = {idusuario: j} //Variable transformada en objeto para enviarla en data
      $.ajax({
@@ -1532,7 +1534,7 @@ function eliminarUsuario() {
           
             success: function (data) {
             
-           alert("Se ha eliminado");
+           alert("Se ha eliminado correctamente!");
            window.location = "/usuarios";
             },
             //si ha ocurrido un error
@@ -1656,5 +1658,5 @@ function sliderDrop() {
 
 function crearCuento(){
     
-    contCuento=6;
+    contCuento=5;
 }

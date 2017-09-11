@@ -31,13 +31,28 @@ body {
 #idh4 {
     text-align: center;
     color: white;
-    height: 30%;
+    height: 310px;
+}
+#idh5 {
+    text-align: center;
+    color: white;
+    height: 400px;
+}
+#idh5 p {
+    color: black;
+    font-size: 16px;
+    max-width: 90%;
 }
 
 #idh4 p {
     color: black;
     font-size: 16px;
     max-width: 90%;
+}
+@media (max-width: 768px) {
+  .portfolio-item {
+    width: 90%;
+  }
 }
 
 .btn-success, .btn-danger {
@@ -179,6 +194,17 @@ body {
     height: 100%;
     padding: 0;
     float: left;
+}
+
+.menu{
+    background-color: azure;
+    margin: 0 auto;
+   opacity: 0.5;
+}
+
+.menu a{
+   
+   opacity: 1;
 }
 
 .myCarousel img{ 
@@ -334,6 +360,22 @@ audio source{
     font-weight: bold;
     
 }
+
+#mainNavNos{
+    font-size: 25px;
+    font-weight: bold;
+    background-color: aliceblue;   
+}
+
+#mainNavNos ul a{
+    color: #999;
+}
+
+#mainNavNos ul a:hover{
+    color:#fed136;
+}
+
+
 /* pauul */
 .cuentoTitulo{
     color: #fed136;
@@ -357,21 +399,14 @@ audio source{
     width: 30%;
 }
 
-#estilofooter {
-    background-color: #fcb913;
-    color: white;
-    padding-bottom: 51px;
-    bottom: 0;
-    width: 100%;
-    margin: 0 auto;
-}
+
 #estilofooter2 {
-    background-color: #0081eb;
+    background-color: #99ff66;
     position: absolute;
     bottom: 0;
     width: 100%;
    
-    color: white;
+    color: black;
     
 }
 #estilofooter2 p, #estilofooter p{
