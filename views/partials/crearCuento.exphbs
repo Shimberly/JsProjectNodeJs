@@ -305,19 +305,19 @@
                     </div>
 
                     <div class="panel-body">
-                        <div class="col-md-8 col-sm-8 fondoAudioP">
+                        <div class="col-md-8 col-sm-8 fondoAudioP2">
 
                         </div>
                         <div class="col-md-4 col-sm-4">
-                            <form enctype="multipart/form-data" class="formularioAP">
+                            <form enctype="multipart/form-data" class="formularioA2P">
                                 <input name="archivo" type="file" id="audioAP2" />
                                 <br>
                                 <br>
-                                <input type="button" class="subirAudioP" value="Subir audio" />
+                                <input type="button" class="subirAudioP2" value="Subir audio" />
                                 <br>
                             </form>
                             <!--div para visualizar mensajes-->
-                            <div class="messagesP"></div>
+                            <div class="messagesP2"></div>
                             <br>
                             <br>
                         </div>
@@ -325,34 +325,34 @@
                     <hr>
                     <div class="panel-body">
                         <div class="col-md-4 col-sm-4">
-                            <form enctype="multipart/form-data" class="formularioAP2">
+                            <form enctype="multipart/form-data" class="formularioA2P2">
                                 <input name="archivo" type="file" id="imagen3" />
                                 <br>
                                 <br>
-                                <input type="button" class="subirImgP" value="Subir imagen" />
+                                <input type="button" class="subirImg2P" value="Subir imagen" />
                                 <br>
                             </form>
                             <!--div para visualizar mensajes-->
 
                             <!--div para visualizar en el caso de imagen-->
                             <div class="showImage"></div>
-                            <div class="col-md-4 col-sm-4 fondoP1">
+                            <div class="col-md-4 col-sm-4 fondo2P1">
                             </div>
                         </div>
 
                         <div class="col-md-4 col-sm-4">
-                            <form enctype="multipart/form-data" class="formularioAP3">
+                            <form enctype="multipart/form-data" class="formularioA2P3">
                                 <input name="archivo" type="file" id="imagen4" />
                                 <br>
                                 <br>
-                                <input type="button" class="subirImgP2" value="Subir imagen" />
+                                <input type="button" class="subirImg2P2" value="Subir imagen" />
                                 <br>
                             </form>
                             <!--div para visualizar mensajes-->
 
                             <!--div para visualizar en el caso de imagen-->
                             <div class="showImage"></div>
-                            <div class="col-md-4 col-sm-4 fondoP2">
+                            <div class="col-md-4 col-sm-4 fondo2P2">
 
                             </div>
                         </div>
@@ -360,7 +360,7 @@
                         <div class="col-md-4 col-sm-4">
                             <label>¿Que numero de imagen es correcta?</label>
 
-                            <input type="text" name="respuesta" class="respuesta">
+                            <input type="text" name="respuesta" class="respuesta2">
                         </div>
 
                         <div class="col-md-4 col-sm-4">

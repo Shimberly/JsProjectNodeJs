@@ -153,10 +153,7 @@ $("#SeleccionarP2").hide();
 //PREGUNTA 1 IMG
 $('.subirAct').click(function () {
     //alert("HOLA");
-    $(".fondoP1").html("");
-    $(".fondoP2").html("");
-    $(".fondoAudioP").html("");
-    $(".respuesta").html("");
+   
     $('#SeleccionarP').show();
     $("#SeleccionarP2").hide();
 
@@ -165,10 +162,7 @@ $('.subirAct').click(function () {
 //PREGUNTA 2 COLORES
 $('.subirAct2').click(function () {
     //alert("HOLA");
-    $(".fondoP1").html("");
-    $(".fondoP2").html("");
-    $(".fondoAudioP").html("");
-    $(".respuesta").html("");
+    
     $('#SeleccionarP2').show();
     $("#SeleccionarP").hide();
 
@@ -214,6 +208,71 @@ $("#guardar").click(function () {
             cache: false,
           
             success: function (data) {
+                 $.ajax({
+                        url: '/ultimoid',
+                        method: 'GET',
+
+                        success: function (data) {
+
+                            var idcuento = data[0].idcuento;
+
+                             $.each(cuento.pagina, function (i, emp) {
+                                    var params = {
+                                        id: idcuento,
+                                        imagen: emp.imagen,
+                                        audio: emp.audio
+                                    }
+
+                                  $.ajax({
+                                        url: '/insertarImg',
+                                        method: 'POST',
+                                        data: params,
+                                        success: function (data) {
+                                            console.log("yeiIMg");
+
+                                        },
+                                        error: function () {
+                                            console.log("error w");
+
+                                        }
+                                    });
+
+                             });
+                            $.each(cuento.pregunta, function (i, emp) {
+                                //alert("repetir preg");
+                                    var params = {
+                                        id: idcuento,
+                                        pregunta: emp,
+                                    }
+
+                                  $.ajax({
+                                        url: '/guardarPregunta',
+                                        method: 'POST',
+                                        data: params,
+                                        success: function (data) {
+                                            console.log("pregunta guardada we");
+
+                                        },
+                                        error: function () {
+                                            console.log("error pregunta");
+
+                                        }
+                                    });
+
+                             });
+
+
+
+                        },
+                        error: function () {
+                            console.log("error w");
+
+                        }
+                    });
+
+                
+                
+                
                 
             },
             //si ha ocurrido un error
@@ -223,69 +282,9 @@ $("#guardar").click(function () {
             }
         });
         
-        $.ajax({
-            url: '/ultimoid',
-            method: 'GET',
-           
-            success: function (data) {
-      
-                var idcuento = data[0].idcuento+1;
-              
-                 $.each(cuento.pagina, function (i, emp) {
-                        var params = {
-                            id: idcuento,
-                            imagen: emp.imagen,
-                            audio: emp.audio
-                        }
-                     
-                      $.ajax({
-                            url: '/insertarImg',
-                            method: 'POST',
-                            data: params,
-                            success: function (data) {
-                                console.log("yeiIMg");
-
-                            },
-                            error: function () {
-                                console.log("error w");
-
-                            }
-                        });
-                     
-                 });
-                $.each(cuento.pregunta, function (i, emp) {
-                    alert("repetir preg");
-                        var params = {
-                            id: idcuento,
-                            pregunta: emp,
-                        }
-                     
-                      $.ajax({
-                            url: '/guardarPregunta',
-                            method: 'POST',
-                            data: params,
-                            success: function (data) {
-                                console.log("pregunta guardada we");
-
-                            },
-                            error: function () {
-                                console.log("error pregunta");
-
-                            }
-                        });
-                     
-                 });
-               
-                
-                
-            },
-            error: function () {
-                console.log("error w");
-
-            }
-        });
+       
         
-        //window.location.href = "/";
+        window.location.href = "/";
     
 });
 
@@ -305,7 +304,7 @@ $("#btnGuardarP1").click(function () {
    
         var pregunta = new Pregunta();
         pregunta.directo(img1,img2, audio, respuesta);
-        preguntas[0] = pregunta;
+        preguntas.push(pregunta);
         
         $("#SeleccionarP").hide();
         $('.subirAct').attr("disabled",true);
@@ -316,29 +315,6 @@ $("#btnGuardarP1").click(function () {
 });
 
 $("#btnGuardarP2").click(function () {
-    
-    var img1 = $(".fondoP1").find("img").attr("src");
-    var img2 = $(".fondoP2").find("img").attr("src");
-    var audio = $(".fondoAudioP").find("audio").children().attr("src");
-    var respuesta = $(".respuesta").val();
-    
-    if(img1 == undefined || img2 == undefined || audio == undefined || respuesta == undefined){
-        alert("Completa la actividad");
-        
-    }else{
-        alert("Se guardo la actividad!");
-   
-        var pregunta = new Pregunta();
-        pregunta.directo(img1,img2, audio, respuesta);
-        preguntas[1] = pregunta;
-
-        $("#SeleccionarP").hide();
-        $("#SeleccionarP2").hide();
-        $('.subirAct2').attr("disabled", "disabled");
-    }
-   
-});
-$("#btnGuardar2P2").click(function () {
     
     var img1 = $(".fondo2P1").find("img").attr("src");
     var img2 = $(".fondo2P2").find("img").attr("src");
@@ -355,6 +331,49 @@ $("#btnGuardar2P2").click(function () {
         pregunta.directo(img1,img2, audio, respuesta);
         preguntas.push(pregunta);
 
+        $("#SeleccionarP").hide();
+        $("#SeleccionarP2").hide();
+        $('.subirAct2').attr("disabled", "disabled");
+    }
+   
+});
+$("#btnGuardar2P1").click(function () {
+    
+     var img1 = $(".fondoP1").find("img").attr("src");
+    var img2 = $(".fondoP2").find("img").attr("src");
+    var audio = $(".fondoAudioP").find("audio").children().attr("src");
+    var respuesta = $(".respuesta").val();
+    
+    if(img1 == undefined || img2 == undefined || audio == undefined || respuesta == undefined){
+        alert("Completa la actividad");
+        
+    }else{
+        alert("Se guardo la actividad!");
+   
+        var pregunta = new Pregunta();
+        pregunta.directo(img1,img2, audio, respuesta);
+         preguntas.push(pregunta);
+
+    }
+   
+});
+
+$("#btnGuardar2P2").click(function () {
+    
+    var img1 = $(".fondo2P1").find("img").attr("src");
+    var img2 = $(".fondo2P2").find("img").attr("src");
+    var audio = $(".fondoAudioP2").find("audio").children().attr("src");
+    var respuesta = $(".respuesta2").val();
+    
+    if(img1 == undefined || img2 == undefined || audio == undefined || respuesta == undefined){
+        alert("Completa la actividad");
+        
+    }else{
+        alert("Se guardo la actividad!");
+   
+        var pregunta = new Pregunta();
+        pregunta.directo(img1,img2, audio, respuesta);
+        preguntas.push(pregunta);
 
     }
    
@@ -425,6 +444,36 @@ $('#imagen2').change(function () {
     //showMessageE("<span>Archivo para subir: " + fileName + ", peso total: " + fileSize + " bytes.</span>");
 });
 
+$('#imagen3').change(function () {
+    //obtenemos un array con los datos del archivo
+    var file = $("#imagen3")[0].files[0];
+    //obtenemos el nombre del archivo
+    var fileName = file.name;
+    //obtenemos la extensión del archivo
+    fileExtension = fileName.substring(fileName.lastIndexOf('.') + 1);
+    //obtenemos el tamaño del archivo
+    var fileSize = file.size;
+    //obtenemos el tipo de archivo image/png ejemplo
+    var fileType = file.type;
+    //mensaje con la información del archivo
+    //showMessageE("<span>Archivo para subir: " + fileName + ", peso total: " + fileSize + " bytes.</span>");
+});
+
+$('#imagen4').change(function () {
+    //obtenemos un array con los datos del archivo
+    var file = $("#imagen4")[0].files[0];
+    //obtenemos el nombre del archivo
+    var fileName = file.name;
+    //obtenemos la extensión del archivo
+    fileExtension = fileName.substring(fileName.lastIndexOf('.') + 1);
+    //obtenemos el tamaño del archivo
+    var fileSize = file.size;
+    //obtenemos el tipo de archivo image/png ejemplo
+    var fileType = file.type;
+    //mensaje con la información del archivo
+    //showMessageE("<span>Archivo para subir: " + fileName + ", peso total: " + fileSize + " bytes.</span>");
+});
+
 //FINAL PREGUNTAS
 
 $('#audio').change(function () {
@@ -456,6 +505,22 @@ $('#audioAP').change(function () {
     //mensaje con la información del archivo
     //showMessageP("<span>Archivo para subir: " + fileName + ", peso total: " + fileSize + " bytes.</span>");
 });
+
+$('#audioAP2').change(function () {
+    //obtenemos un array con los datos del archivo
+    var file = $("#audioAP2")[0].files[0];
+    //obtenemos el nombre del archivo
+    var fileName = file.name;
+    //obtenemos la extensión del archivo
+    fileExtension = fileName.substring(fileName.lastIndexOf('.') + 1);
+    //obtenemos el tamaño del archivo
+    var fileSize = file.size;
+    //obtenemos el tipo de archivo image/png ejemplo
+    var fileType = file.type;
+    //mensaje con la información del archivo
+    //showMessageP("<span>Archivo para subir: " + fileName + ", peso total: " + fileSize + " bytes.</span>");
+});
+
 
 //al enviar el formulario
 $('.subirImg').click(function () {
@@ -723,7 +788,7 @@ $('.subirImg2P').click(function () {
             // message = $("<span>La imagen ha subido correctamente.</span>");
             //showMessageE(message);
             if (isImage(fileExtension)) {
-                $(".fondoP1").html("<img id='img1' class='ui-widget-content' src='images/cuentos/" + data + "' />");
+                $(".fondo2P1").html("<img id='img1' class='ui-widget-content' src='images/cuentos/" + data + "' />");
 
             }
         },
@@ -761,7 +826,7 @@ $('.subirImg2P2').click(function () {
             // message = $("<span>La imagen ha subido correctamente.</span>");
             //showMessageE(message);
             if (isImage(fileExtension)) {
-                $(".fondoP2").html("<img id='img2' class='ui-widget-content' src='images/cuentos/" + data + "' />");
+                $(".fondo2P2").html("<img id='img2' class='ui-widget-content' src='images/cuentos/" + data + "' />");
 
             }
         },
@@ -903,6 +968,7 @@ function editarCuento(){
 
             success: function (data) {
                 console.log("datos id : "+data[0].nombre);
+                $("#idcuento").val(data[0].idcuento);
                 $("#nombre").val(data[0].nombre);
                 $("#descripcion").val(data[0].descripcion);
                 $("#credito").val(data[0].creditos);
@@ -964,20 +1030,35 @@ function editarCuento(){
                         cache: false,
 
                         success: function (data) {
-                            $.each(data, function (index, elem) {
-                                console.log("oliii preg "+elem.audio);
-                                console.log("oliii preg "+elem.img1);
-                                console.log("oliii preg "+elem.img2);
-                                $(".fondoAudioP").append("<audio controls><source src='" + elem.audio + "' type='audio/mp3'></audio>");
-                                $(".fondoP1").html("<img id='img1' class='ui-widget-content' src='" + elem.img1 + "' />");
-                                $(".fondoP2").html("<img id='img1' class='ui-widget-content' src='" + elem.img2 + "' />");
-                                $(".respuesta").val(elem.respuesta);
-                                //$(".fondoAudioP").append("uweqhibdnasjdgausjdqiw");
-                                //$(".fondoAudioP").append("<audio controls><source src='"+elem.audio+"'></audio>");
-                                /*if(data == undefined){
+                            if(data.length==1){
+                                $(".fondoAudioP").append("<audio controls><source src='" + data[0].audio + "' type='audio/mp3'></audio>");
+                                $(".fondoP1").html("<img id='img1' class='ui-widget-content' src='" +  data[0].img1 + "' />");
+                                $(".fondoP2").html("<img id='img1' class='ui-widget-content' src='" +  data[0].img2 + "' />");
+                                $(".respuesta").val( data[0].respuesta);
+                                
+                                var pregunta = new Pregunta();
+                                pregunta.directo(data[0].img1,data[0].img2, data[0].audio, data[0].respuesta);
+                                preguntas.push(pregunta);
 
-                                }*/
-                            });
+                            }
+                            if(data.length==2){
+                                $(".fondoAudioP").append("<audio controls><source src='" + data[0].audio + "' type='audio/mp3'></audio>");
+                                $(".fondoP1").html("<img id='img1' class='ui-widget-content' src='" +  data[0].img1 + "' />");
+                                $(".fondoP2").html("<img id='img1' class='ui-widget-content' src='" +  data[0].img2 + "' />");
+                                $(".respuesta").val( data[0].respuesta);
+                                var pregunta = new Pregunta();
+                                pregunta.directo(data[0].img1,data[0].img2, data[0].audio, data[0].respuesta);
+                                preguntas.push(pregunta);
+                                
+                                $(".fondoAudioP2").append("<audio controls><source src='" + data[1].audio + "' type='audio/mp3'></audio>");
+                                $(".fondo2P1").html("<img id='img1' class='ui-widget-content' src='" +  data[1].img1 + "' />");
+                                $(".fondo2P2").html("<img id='img1' class='ui-widget-content' src='" +  data[1].img2 + "' />");
+                                $(".respuesta2").val( data[1].respuesta);
+                                var pregunta2 = new Pregunta();
+                                pregunta2.directo(data[1].img1,data[1].img2, data[1].audio, data[1].respuesta);
+                                preguntas.push(pregunta2);
+                            }
+                          
                         },
                         //si ha ocurrido un error
                         error: function () {
@@ -997,6 +1078,131 @@ function editarCuento(){
 }
 
 
+<<<<<<< HEAD
+//GUARDAR EDITAR CUENTO
+function guardarEditar(){
+    
+    var imagenesCuento = [];
+    var audiosCuento = [];
+    
+    //esta bandera sirve para saber si todas las hojas estan llenas
+    var flag = 0;
+    $(".escenas").each(function (index) {
+        var rutaI = $(this).find("img").attr("src");
+        var rutaA = $(this).find("audio").children().attr("src");
+        //alert(rutaA);
+        //alert("ruta: "+ruta);
+        if (rutaI == undefined || rutaA == undefined) {
+            alert("Llena todas las hojas.");
+            flag++;
+            return false;
+        } else {
+            imagenesCuento.push(rutaI);
+            audiosCuento.push(rutaA);
+        }
+    });
+
+    //si todas las hojas estan llenas se puede guardar sino no
+    if (flag == 0) {
+
+      
+        var cuento = new Cuento();
+        cuento.directo($("#nombre").val(), $("#descripcion").val(), $("#credito").val(), imagenesCuento, audiosCuento);
+        cuento.pregunta=preguntas;
+        alert("Se guardo el cuento " + cuento.nombre);
+       
+    };
+        $.ajax({
+            url: '/guardarCuento',
+            type: 'POST',
+            data: cuento,
+            cache: false,
+          
+            success: function (data) {
+                 $.ajax({
+                        url: '/ultimoid',
+                        method: 'GET',
+
+                        success: function (data) {
+
+                            var idcuento = data[0].idcuento;
+
+                             $.each(cuento.pagina, function (i, emp) {
+                                    var params = {
+                                        id: idcuento,
+                                        imagen: emp.imagen,
+                                        audio: emp.audio
+                                    }
+
+                                  $.ajax({
+                                        url: '/insertarImg',
+                                        method: 'POST',
+                                        data: params,
+                                        success: function (data) {
+                                            console.log("yeiIMg");
+
+                                        },
+                                        error: function () {
+                                            console.log("error w");
+
+                                        }
+                                    });
+
+                             });
+                            $.each(cuento.pregunta, function (i, emp) {
+                                //alert("repetir preg");
+                                    var params = {
+                                        id: idcuento,
+                                        pregunta: emp,
+                                    }
+
+                                  $.ajax({
+                                        url: '/guardarPregunta',
+                                        method: 'POST',
+                                        data: params,
+                                        success: function (data) {
+                                            console.log("pregunta guardada we");
+
+                                        },
+                                        error: function () {
+                                            console.log("error pregunta");
+
+                                        }
+                                    });
+
+                             });
+
+
+
+                        },
+                        error: function () {
+                            console.log("error w");
+
+                        }
+                    });
+
+                
+                
+                
+                
+            },
+            //si ha ocurrido un error
+            error: function () {
+                console.log("error pokemon");
+
+            }
+        });
+        
+       
+        
+        //window.location.href = "/";
+    
+    
+    
+    
+}
+
+=======
 function eliminarCuento(btn) {  
     alert("Hola eliminar cuento"+btn);
     
@@ -1027,6 +1233,7 @@ function eliminarCuento(btn) {
  
   
 };
+>>>>>>> 002f446027643570cfa13f81e0f764899e62a845
 
 /* LEER USUARIOS */
 function leerUsuarios() {
