@@ -81,7 +81,92 @@ app.post('/listarCuentoPorUsuario', (req, res) => {
 });
 
 
+<<<<<<< HEAD
+app.post('/editarCuento', (req, res, next) => {
+    var client = new pg.Client(conString);
+     //console.log("miau "+util.inspect(req,false,null));
+    client.connect(function(err) {
+        if(err) {
+            return console.error('could not connect to postgres', err);
+            return res.status(500).json({success: false, data: err});
+        }
+       
+        client.query("UPDATE cuento SET nombre='"+ req.body.cuento.nombre +"',descripcion='"+ req.body.cuento.descripcion +"',creditos='"+ req.body.cuento.credito +"' WHERE idcuento="+ req.body.idcuento +";", function(err, result) {
+            if(err) {
+                return console.error('error running query', err);
+            }
+            
+            //console.log(result);
+            client.end();
+            return res.json(result.rows);
+            
+           
+        });
+        
+    });
+    
+   
+});
+
+
+app.post('/eliminarPagPorId', (req, res, next) => {
+    var client = new pg.Client(conString);
+     //console.log("miau "+util.inspect(req,false,null));
+    client.connect(function(err) {
+        if(err) {
+            return console.error('could not connect to postgres', err);
+            return res.status(500).json({success: false, data: err});
+        }
+       
+        client.query("DELETE FROM cuento WHERE idcuento="+ req.body.idcuento +";", function(err, result) {
+            if(err) {
+                return console.error('error running query', err);
+            }
+            
+            //console.log(result);
+            client.end();
+            return res.json(result.rows);
+            
+           
+        });
+        
+    });
+    
+   
+});
+
+app.post('/eliminarPregPorId', (req, res, next) => {
+    var client = new pg.Client(conString);
+     //console.log("miau "+util.inspect(req,false,null));
+    client.connect(function(err) {
+        if(err) {
+            return console.error('could not connect to postgres', err);
+            return res.status(500).json({success: false, data: err});
+        }
+       
+        client.query("DELETE FROM cuento WHERE idcuento="+ req.body.idcuento +";", function(err, result) {
+            if(err) {
+                return console.error('error running query', err);
+            }
+            
+            //console.log(result);
+            client.end();
+            return res.json(result.rows);
+            
+           
+        });
+        
+    });
+    
+   
+});
+
+
+
+app.post('/listarCuentoPorId', (req, res, next) => {
+=======
 app.post('/listarCuentoPorId', (req, res) => {
+>>>>>>> 49290151aa1c36a40dc916dea705eff9b902ce86
     var client = new pg.Client(conString);
     client.connect(function(err) {
         if(err) {
@@ -192,7 +277,7 @@ app.post('/guardarCuento', (req, res) => {
                 return console.error('error running query', err);
             }
             client.end();
-            return res.json(result.rows);
+            return res.json(result);
         });
         
     });
@@ -215,7 +300,7 @@ app.post('/guardarPregunta', (req, res) => {
                 return console.error('error running query', err);
             }
             client.end();
-            return res.json(result.rows);
+            return res.json(req.body);
         });
         
     });
