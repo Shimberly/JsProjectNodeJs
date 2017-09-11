@@ -936,11 +936,9 @@ var idRespuesta;
 function recibirCuento() {
     var j = localStorage.getItem("var")
     alert("Disfruta del cuento!");
-<<<<<<< HEAD
-    var elem = {idcuento: j} 
-=======
+
     var elem = {idcuento: j} //Variable transformada en objeto para enviarla en data
->>>>>>> 721c7f6736f5e184e15cea0eb1504b729bc65fef
+
     $.ajax({
             url: '/listarImg',
             type: 'POST',
@@ -1169,14 +1167,12 @@ function enviar(btn) {
     window.location = "/cuento";
 };
 
-<<<<<<< HEAD
+
 function enviarEditar(btn) {  
     localStorage.setItem("var", btn);
     window.location = "/editarCuento";
 };
-=======
 
->>>>>>> 721c7f6736f5e184e15cea0eb1504b729bc65fef
 
 /*CARGAR ACTIVIDADES EN LOS CUENTOS*/
 
