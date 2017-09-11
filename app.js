@@ -34,6 +34,7 @@ app.engine( 'exphbs', exphbs( {
 } ) );
 
 app.set( 'view engine', 'exphbs' );
+app.set('port', (process.env.PORT || 5000))
 
 
 app.post('/listarCuentoPorUsuario', (req, res) => {
