@@ -2,6 +2,12 @@
   "name": "JsProjectNodeJs",
   "description": "Pagina de cuentos",
   "version": "1.0.0",
+  "scripts": {
+      "start": "node /",
+      "test": "mocha",
+      "postinstall": "bower install && grunt build"
+  },
+
   "engines": {
     "node": "6.0.0"
   },
@@ -16,4 +22,5 @@
     "pg": "^7.3.0",
     "util": "^0.10.3"
   }
+    
 }
