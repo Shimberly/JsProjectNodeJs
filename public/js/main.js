@@ -198,7 +198,7 @@ $("#guardar").click(function () {
         var cuento = new Cuento();
         cuento.directo($("#nombre").val(), $("#descripcion").val(), $("#credito").val(), imagenesCuento, audiosCuento);
         cuento.pregunta=preguntas;
-        alert("Se guardo el cuento " + cuento.nombre);
+        //alert("Se guardo el cuento " + cuento.nombre);
        
     };
         $.ajax({
@@ -261,7 +261,7 @@ $("#guardar").click(function () {
 
                              });
 
-
+                            
 
                         },
                         error: function () {
@@ -269,22 +269,15 @@ $("#guardar").click(function () {
 
                         }
                     });
-
-                
-                
-                
-                
+                alert("Se guardo el cuento " + cuento.nombre);
+                window.location.href = "/";
             },
             //si ha ocurrido un error
             error: function () {
                 console.log("error pokemon");
-
             }
         });
         
-       
-        
-        window.location.href = "/";
     
 });
 
@@ -352,7 +345,7 @@ $("#btnGuardar2P1").click(function () {
    
         var pregunta = new Pregunta();
         pregunta.directo(img1,img2, audio, respuesta);
-         preguntas.push(pregunta);
+         preguntas[0]=pregunta;
 
     }
    
@@ -373,7 +366,7 @@ $("#btnGuardar2P2").click(function () {
    
         var pregunta = new Pregunta();
         pregunta.directo(img1,img2, audio, respuesta);
-        preguntas.push(pregunta);
+        preguntas[1]=pregunta;
 
     }
    
@@ -632,7 +625,7 @@ $('.subirAudioP').click(function () {
             message = $("<span\>El audio ha subido correctamente.</span>");
             showMessageP(message);
             if (isImage(fileExtension)) {
-                $(".fondoAudioP").append("<audio controls><source src='images/cuentos/" + data + "' type='audio/mp3'></audio>");
+                $(".fondoAudioP").html("<audio controls><source src='images/cuentos/" + data + "' type='audio/mp3'></audio>");
                 console.log(data);
                 /*<audio controls>
                               <source src="../img/cuentos/000938162_prev.mp3" type="audio/mp3">
@@ -671,7 +664,7 @@ $('.subirAudioP2').click(function () {
             message = $("<span\>El audio ha subido correctamente.</span>");
             showMessageP2(message);
             if (isImage(fileExtension)) {
-                $(".fondoAudioP2").append("<audio controls><source src='images/cuentos/" + data + "' type='audio/mp3'></audio>");
+                $(".fondoAudioP2").html("<audio controls><source src='images/cuentos/" + data + "' type='audio/mp3'></audio>");
                 console.log(data);
                 /*<audio controls>
                               <source src="../img/cuentos/000938162_prev.mp3" type="audio/mp3">
@@ -996,7 +989,7 @@ function editarCuento(){
                 $.each(data, function (index, elem) {
                     $(".carousel-inner").append("<div id="+index+" class='item'> \
                                         <img src='" + elem.imagen + "' alt='ImagenCuento'>\
-                                        <div class='container'>\
+                                        <div class='container escenas'>\
                                             <div class='carousel-caption'>\
                                                 <audio controls><source src='"+elem.audio+"'></audio>\
                                             </div>\
@@ -1030,6 +1023,7 @@ function editarCuento(){
                         cache: false,
 
                         success: function (data) {
+                            preguntas.removeAll;
                             if(data.length==1){
                                 $(".fondoAudioP").append("<audio controls><source src='" + data[0].audio + "' type='audio/mp3'></audio>");
                                 $(".fondoP1").html("<img id='img1' class='ui-widget-content' src='" +  data[0].img1 + "' />");
@@ -1083,19 +1077,20 @@ function guardarEditar(){
     
     var imagenesCuento = [];
     var audiosCuento = [];
-    
+      
     //esta bandera sirve para saber si todas las hojas estan llenas
     var flag = 0;
     $(".escenas").each(function (index) {
-        var rutaI = $(this).find("img").attr("src");
-        var rutaA = $(this).find("audio").children().attr("src");
-        //alert(rutaA);
-        //alert("ruta: "+ruta);
+        var rutaI = $(this).parent().find("img").attr("src");
+        var rutaA = $(this).children().find("source").attr("src");
+        alert("I "+ rutaI);
+        alert("ruta: "+rutaA);
         if (rutaI == undefined || rutaA == undefined) {
             alert("Llena todas las hojas.");
             flag++;
             return false;
         } else {
+            console.log("holi");
             imagenesCuento.push(rutaI);
             audiosCuento.push(rutaA);
         }
@@ -1109,94 +1104,109 @@ function guardarEditar(){
         cuento.directo($("#nombre").val(), $("#descripcion").val(), $("#credito").val(), imagenesCuento, audiosCuento);
         cuento.pregunta=preguntas;
         alert("Se guardo el cuento " + cuento.nombre);
+        var params = {
+            cuento : cuento,
+            idcuento: $("#idcuento").val()
+        }
        
-    };
+    
         $.ajax({
-            url: '/guardarCuento',
+            url: '/editarCuento',
             type: 'POST',
-            data: cuento,
+            data: params,
             cache: false,
           
             success: function (data) {
-                 $.ajax({
-                        url: '/ultimoid',
-                        method: 'GET',
+                //alert("se editoooo");
+                         $.ajax({
+                                url: '/eliminarPaginasPorCuento',
+                                method: 'POST',
+                                data: params,
+                                success: function (data) {
+                                    console.log("borro paginas");
+                                    $.ajax({
+                                            url: '/eliminarPreguntasPorCuento',
+                                            method: 'POST',
+                                            data: params,
+                                            success: function (data) {
+                                                console.log("borro preguntas");
+                                                console.log("pag lenght: "+ cuento.pagina.length);
+                                                $.each(cuento.pagina, function (i, emp) {
+                         
+                          
+                                                        var params = {
+                                                            id: $("#idcuento").val(),
+                                                            imagen: emp.imagen,
+                                                            audio: emp.audio
+                                                        }
 
-                        success: function (data) {
+                                                      $.ajax({
+                                                            url: '/insertarImg',
+                                                            method: 'POST',
+                                                            data: params,
+                                                            success: function (data) {
+                                                                console.log("guardar paginas");
 
-                            var idcuento = data[0].idcuento;
+                                                            },
+                                                            error: function () {
+                                                                console.log("error paginas");
 
-                             $.each(cuento.pagina, function (i, emp) {
-                                    var params = {
-                                        id: idcuento,
-                                        imagen: emp.imagen,
-                                        audio: emp.audio
-                                    }
+                                                            }
+                                                        });
 
-                                  $.ajax({
-                                        url: '/insertarImg',
-                                        method: 'POST',
-                                        data: params,
-                                        success: function (data) {
-                                            console.log("yeiIMg");
+                                                 });
+                                                
+                                                
+                                                 $.each(cuento.pregunta, function (i, emp) {
+                                                        //alert("repetir preg");
+                                                            var params = {
+                                                                id: $("#idcuento").val(),
+                                                                pregunta: emp,
+                                                            }
 
-                                        },
-                                        error: function () {
-                                            console.log("error w");
+                                                          $.ajax({
+                                                                url: '/guardarPregunta',
+                                                                method: 'POST',
+                                                                data: params,
+                                                                success: function (data) {
+                                                                    console.log("pregunta guardada we");
 
-                                        }
-                                    });
+                                                                },
+                                                                error: function () {
+                                                                    console.log("error pregunta");
 
-                             });
-                            $.each(cuento.pregunta, function (i, emp) {
-                                //alert("repetir preg");
-                                    var params = {
-                                        id: idcuento,
-                                        pregunta: emp,
-                                    }
+                                                                }
+                                                            });
 
-                                  $.ajax({
-                                        url: '/guardarPregunta',
-                                        method: 'POST',
-                                        data: params,
-                                        success: function (data) {
-                                            console.log("pregunta guardada we");
+                                                     });
+                                                 alert("Se edito el cuento");
+                                                window.location.href = "/";
+                                               
+                                            },
+                                            error: function () {
+                                                console.log("error borrar preguntas");
 
-                                        },
-                                        error: function () {
-                                            console.log("error pregunta");
+                                            }
+                                      });
+                                     
+                                },
+                                error: function () {
+                                    console.log("error borrar paginas");
 
-                                        }
-                                    });
+                                }
+                             
+                          });
+               
 
-                             });
+                },
+                error: function () {
+                    console.log("error w");
 
+                }
+            });
 
-
-                        },
-                        error: function () {
-                            console.log("error w");
-
-                        }
-                    });
-
-                
-                
-                
-                
-            },
-            //si ha ocurrido un error
-            error: function () {
-                console.log("error pokemon");
-
-            }
-        });
-        
-       
-        
+        };  
         //window.location.href = "/";
-    
-    
     
     
 }
@@ -1638,7 +1648,7 @@ function sliderDrop() {
                     $(this).children().prepend("<audio controls><source src='" + id + "' type='audio/mp3'></audio>");
                 }else{
                     //alert("desde item lleno");
-                    $(this).find("audio").attr("src",id);
+                    $(this).find("source").attr("src",id);
                 }
             }
 
