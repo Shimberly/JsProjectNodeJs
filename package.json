@@ -3,7 +3,7 @@
   "description": "Pagina de cuentos",
   "version": "1.0.0",
   "scripts": {
-      "start": "node /"
+      "start": "node app.js"
   },
 
   "engines": {
