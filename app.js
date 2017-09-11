@@ -5,8 +5,11 @@ var http     = require('http'),
 
 var multer = require('multer'); 
 const pg    = require('pg');
+
+pg.defaults.ssl = true;
 const connectionString = process.env.DATABASE_URL || 'postgres://localhost:5432/JSPROJECT';
-var conString = "postgres://postgres:postgres@localhost:5432/JSPROJECT";
+//var conString = "postgres://postgres:postgres@localhost:5432/JSPROJECT";
+var conString = "postgres://ouotpxpfgzvdif:14f8728c627f11f8a487cdf5a21b6625efcf196a70f03529ebacd6aa9468c80e@ec2-54-163-249-237.compute-1.amazonaws.com:5432/df2rtm1mo3h4vl";
 
 var express = require('express');
 var exphbs  = require('express-handlebars');
@@ -33,29 +36,8 @@ app.engine( 'exphbs', exphbs( {
 app.set( 'view engine', 'exphbs' );
 
 
-app.get('/miau', (req, res, next) => {
-        var client = new pg.Client(conString);
-    client.connect(function(err) {
-        if(err) {
-            return console.error('could not connect to postgres', err);
-            return res.status(500).json({success: false, data: err});
-        }
-
-        client.query('SELECT * FROM usuario;', function(err, result) {
-            if(err) {
-                return console.error('error running query', err);
-            }
-            console.log("mi: "+result.rows[0].idusuario);
-            console.log(result);
-            return res.json(result);
-            
-            client.end();
-        });
-    });
-   
-});
-
 app.post('/listarCuentoPorUsuario', (req, res) => {
+   
     var client = new pg.Client(conString);
     client.connect(function(err) {
         if(err) {
