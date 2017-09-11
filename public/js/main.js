@@ -1023,40 +1023,6 @@ function eliminarCuento(btn) {
             }
     });
     
-     $.ajax({
-            url: '/eliminarPreguntasPorCuento',
-            type: 'POST',
-            data: elem,
-            cache: false,
-          
-            success: function (data) {
-            
-           alert("Se ha eliminado las preguntas");
-          
-            },
-            //si ha ocurrido un error
-            error: function () {
-                console.log("error");
-            }
-    });
-    
-    
-     $.ajax({
-            url: '/eliminarCuento',
-            type: 'POST',
-            data: elem,
-            cache: false,
-          
-            success: function (data) {
-            
-           alert("Se ha eliminado las preguntas");
-           window.location = "/listarCuentos";
-            },
-            //si ha ocurrido un error
-            error: function () {
-                console.log("error");
-            }
-    });
     
  
   

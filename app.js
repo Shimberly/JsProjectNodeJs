@@ -291,7 +291,7 @@ app.post('/eliminarPreguntasPorCuento', (req, res, next) => {
     });
 });
 
-app.post('/eliminarPaginasPorCuento', (req, res, next) => {
+app.post('/eliminarPaginasPorCuento', (req, res) => {
     var client = new pg.Client(conString);
      var idcuento=req.body.idcuento;
     
