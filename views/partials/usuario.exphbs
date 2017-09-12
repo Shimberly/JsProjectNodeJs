@@ -30,9 +30,9 @@
    
    
     <div class="container">  
-  <form id="contact">
+  <form id="contact" class="formUsuario">
    
-    <h4>DATOS DE USUARIO:</h4>
+    <h3>DATOS DE USUARIO</h3>
     <fieldset>
       <input placeholder="Usuario" id="usuario" type="text" tabindex="1">
     </fieldset>
@@ -43,9 +43,9 @@
       <input placeholder="Nombre" id="nombre" type="text" tabindex="3">
     </fieldset>
    
-    <fieldset>
-      <input type="button" id="btnActualizarUsuario" onclick="actualizarUsuario()" value="ACTUALIZAR"></input>
-    <input type="button" id="btnEliminarUsuario" onclick="eliminarUsuario()" value="ELIMINAR"></input>
+    <fieldset class="divBotonesUsuario">
+      <input type="button" id="btnActualizarUsuario" onclick="actualizarUsuario()" value="ACTUALIZAR" class="btnUsuarioVibrar"></input>
+    <input type="button" id="btnEliminarUsuario" onclick="eliminarUsuario()" value="ELIMINAR" class="btnUsuarioVibrar"></input>
     </fieldset>
    
   </form>
