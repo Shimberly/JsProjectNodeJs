@@ -37,7 +37,7 @@
         <br>
         <br>
         <div class="nombreCuento">
-            <input id="idcuento" placeholder="Id del Cuento" />
+            <input id="idcuento" placeholder="Id del Cuento" class="ocultar"/>
             <input id="nombre" placeholder="Nombre del Cuento" />
             <input id="descripcion" placeholder="Descripcion" />
         </div>

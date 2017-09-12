@@ -19,9 +19,7 @@
                     <li>
                         <a class="page-scroll" href="/nosotros">NOSOTROS</a>
                     </li>
-                    <li>
-                        <a class="exportar">Descargar Json</a>
-                    </li>
+                   
                 </ul>
             </div>
         </div>

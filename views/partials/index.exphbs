@@ -34,7 +34,7 @@
             <br> <br><br> <br> <br> <br><br><br> <br><br> <br><br> <br>
             <a href="/crearCuento" class="page-scroll btn btn-xl"><img src="images/btn1.png" alt="icono Crear"><br> CREAR CUENTO</a>
             <a href="/listarCuentos" class="page-scroll btn btn-xl"><img src="images/btn2.png" alt="icono leer"><br> LEER CUENTO</a><br>
-            <img src="images/mariposas.gif"> 
+            <img src="images/mariposas.gif" alt="mariposas"> 
 
             <div class="intro-text">
                 <div class="intro-lead-in"></div>

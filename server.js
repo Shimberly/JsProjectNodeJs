@@ -7,8 +7,6 @@ var multer = require('multer');
 const pg    = require('pg');
 
 pg.defaults.ssl = true;
-const connectionString = process.env.DATABASE_URL || 'postgres://localhost:5432/JSPROJECT';
-//var conString = "postgres://postgres:postgres@localhost:5432/JSPROJECT";
 var conString = "postgres://bpmzsanfrohefo:54c1b0b1d14def6f50a60e3b56b05f3edae76982f52b6271e31efa4e8dbbce58@ec2-23-21-101-249.compute-1.amazonaws.com:5432/d5omaho794sa7u";
 
 var express = require('express');
