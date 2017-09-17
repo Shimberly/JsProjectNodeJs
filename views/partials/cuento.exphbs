@@ -25,6 +25,13 @@
     <br><br><br> <br><br><br>
     <p class="cuentoTitulo"></p>
     <p class="descripcion"></p>
+    <p class="usuario"></p>
+    
+     
+     
+     
+     
+ 
     <br><br><br>
     <div class="container cntCuento">
         <div id="myCarousel" class="carousel slide" data-ride="carousel"> 

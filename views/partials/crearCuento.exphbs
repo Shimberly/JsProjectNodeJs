@@ -39,7 +39,17 @@
         <div class="nombreCuento">
             <input id="nombre" placeholder="Nombre del Cuento" />
             <input id="descripcion" placeholder="Descripcion" />
+            
+            <div class="selectorusuario">
+                Usuario:
+                    <select id="usuarioop">
+    
+                        
+                        
+                    </select>
+           
         </div>
+         <br>
 
         <!-- Slider -->
 

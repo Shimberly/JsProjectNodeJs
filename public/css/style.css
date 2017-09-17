@@ -151,7 +151,7 @@ body {
 }
     
 /*leer cuento*/
-.descripcion, .credito{
+.descripcion, .credito, .usuario, .usuarios{
     text-align: center;
     font-size: 24px;
 }

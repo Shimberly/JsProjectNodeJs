@@ -23,6 +23,7 @@ class Cuento {
         //alert(obj.nombre);
         this.nombre = obj.nombre;
         this.descripcion = obj.descripcion;
+        this.usuario=obj.usuario;
         this.credito = obj.credito;
 
         var pregunta = [];
@@ -42,9 +43,10 @@ class Cuento {
         this.pagina = pagina;
 
     }
-    directo(nombre, descripcion, credito, img, aud) {
+    directo(nombre, descripcion, usuario, credito, img, aud) {
         this.nombre = nombre;
         this.descripcion = descripcion;
+        this.usuario=usuario;
         this.credito = credito;
 
         var pregunta = [];
@@ -194,10 +196,14 @@ $("#guardar").click(function () {
     //si todas las hojas estan llenas se puede guardar sino no
     if (flag == 0) {
 
-      
+        var idusuario=$("#usuarioop").val();
+        
         var cuento = new Cuento();
-        cuento.directo($("#nombre").val(), $("#descripcion").val(), $("#credito").val(), imagenesCuento, audiosCuento);
+        
+        
+        cuento.directo($("#nombre").val(), $("#descripcion").val(),  $("#credito").val(), idusuario,imagenesCuento, audiosCuento);
         cuento.pregunta=preguntas;
+       
         //alert("Se guardo el cuento " + cuento.nombre);
        
     };
@@ -1274,6 +1280,10 @@ function eliminarCuento(btn) {
   
 };
 /* LEER USUARIOS */
+
+
+
+
 function leerUsuarios() {
      var datos="";
      $.ajax({
@@ -1406,6 +1416,8 @@ function recibirCuento() {
                 //console.log("datos id : "+data[0].nombre);
                 $(".cuentoTitulo").html("<a href='#'>"+data[0].nombre+"</a>");
                 $(".descripcion").html(data[0].descripcion);
+                $(".usuario").html("ID de Usuario: "+data[0].idusuario);
+              
                 $(".credito").html("Créditos: "+data[0].creditos);
             },
             //si ha ocurrido un error
@@ -1659,4 +1671,37 @@ function sliderDrop() {
 function crearCuento(){
     
     contCuento=5;
+    
+     var datos="";
+    
+     $.ajax({
+        url: '/listarUsuarios',
+        type: 'GET',
+       
+        cache: false,
+        contentType: false,
+        processData: false,
+        
+        success: function (data) {
+               //alert("1"); 
+               console.log(data);
+            
+               datos=data;
+            
+               $.each(datos, function (index, elem) {
+                   
+               $("#usuarioop").append("<option value="+elem.idusuario+" selected='selected'>"+elem.nombre+"</option>");
+                  
+               });
+            
+           
+        },
+        //si ha ocurrido un error
+        error: function () {
+            console.log("error");
+             alert("eror"); 
+           
+        }
+    });
+    
 }
