@@ -34,21 +34,22 @@
         <br>
         <br>
         <br>
+        <br> <br>
         <br>
-        <br>
-        <div class="nombreCuento">
-            <input id="nombre" placeholder="Nombre del Cuento" />
-            <input id="descripcion" placeholder="Descripcion" />
-            
-            <div class="selectorusuario">
-                Usuario:
+       <div class="selectorusuario">
+                <span class="spanSelect">Usuario: </span>
                     <select id="usuarioop">
     
                         
                         
                     </select>
-           
-        </div>
+          
+        </div> <br>
+        <div class="nombreCuento">
+            <input id="nombre" placeholder="Nombre del Cuento" />
+            <input id="descripcion" placeholder="Descripcion" />
+            
+            
          <br>
 
         <!-- Slider -->
@@ -226,7 +227,7 @@
                 <br>
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h3 class="panel-title">SELECCIONAR PERSONAJE</h3>
+                        <h3 class="panel-title">ACTIVIDAD 1</h3>
                     </div>
 
                     <div class="panel-body">
@@ -305,7 +306,7 @@
                 <br>
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h3 class="panel-title">SELECCIONAR COLORES</h3>
+                        <h3 class="panel-title">ACTIVIDAD 2</h3>
                     </div>
 
                     <div class="panel-body">
