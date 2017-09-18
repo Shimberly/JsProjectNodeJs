@@ -40,6 +40,8 @@
             <input id="idcuento" placeholder="Id del Cuento" class="ocultar"/>
             <input id="nombre" placeholder="Nombre del Cuento" />
             <input id="descripcion" placeholder="Descripcion" />
+            <input id="idusuario" placeholder="ID de Usuario" />
+            
         </div>
 
         <!-- Slider -->

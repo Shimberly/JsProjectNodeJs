@@ -1020,7 +1020,9 @@ function editarCuento(){
                 $("#idcuento").val(data[0].idcuento);
                 $("#nombre").val(data[0].nombre);
                 $("#descripcion").val(data[0].descripcion);
+                $("#idusuario").val(data[0].idusuario);
                 $("#credito").val(data[0].creditos);
+                
             },
             //si ha ocurrido un error
             error: function () {
@@ -1157,7 +1159,7 @@ function guardarEditar(){
 
       
         var cuento = new Cuento();
-        cuento.directo($("#nombre").val(), $("#descripcion").val(), $("#credito").val(), imagenesCuento, audiosCuento);
+        cuento.directo($("#nombre").val(), $("#descripcion").val(), $("#credito").val(), $("#idusuario").val(),imagenesCuento, audiosCuento);
         cuento.pregunta=preguntas;
         
         var params = {
