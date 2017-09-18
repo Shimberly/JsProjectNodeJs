@@ -887,8 +887,56 @@ function isImage(extension) {
 
 /* LISTAR CUENTOS */
 function leerCuento() {
-     var datos="";
-     var numero=1;
+     
+    
+    
+     $.ajax({
+        url: '/listarUsuarios',
+        type: 'GET',
+       
+        cache: false,
+        contentType: false,
+        processData: false,
+        
+        success: function (data) {
+               //alert("1"); 
+               console.log(data);
+            
+               datos=data;
+                
+              
+               $.each(datos, function (index, elem) {
+                    
+    
+    //CARGA DE DATOS DE SELECT DE BASE DE DATOS
+   
+                    $("#usuarioop").append("<option value='"+elem.idusuario+"' selected='selected'>"+elem.nombre+"</option>");
+                  
+               });
+               
+        },
+        //si ha ocurrido un error
+        error: function () {
+            console.log("error");
+            
+        }
+    });
+    
+    
+    
+    
+    
+    
+  
+};
+
+
+    
+    $("#usuarioop").change(function(event){
+    var idusuario = $("#usuarioop option:selected").attr("value");
+          
+    var datos="";
+     var numero=idusuario;
      var params = {
         idusuario : numero
      }
@@ -902,6 +950,46 @@ function leerCuento() {
             
             //console.log(data);
             datos=data;
+            
+                
+            $("#ListaCuento").html("");
+            
+        //<img id='imghome' src='" + elem.pagina[0].imagen + "' alt=''>\
+            $.each(datos, function (index, elem) {
+            var img;
+            var datosidcuento=elem.idcuento;
+
+            $.ajax({
+                url: '/listarImg',
+                type: 'POST',
+                data: elem,
+                cache: false,
+
+                success: function (data) {
+
+                    //console.log(data);
+                    img=data[0].imagen;
+
+                     $("#ListaCuento").append("<div class='col-md-4 portfolio-item'>\
+                    <div id='idh5'>\
+                            <button id='btnLista' onclick='enviar("+ elem.idcuento +")'>\
+                            <h3 id='idh3'>" + elem.nombre + "</h3>\
+                            <img id='imghome' src='" + img + "' alt=''>\
+                            <p>" + elem.descripcion + "</p>\
+                            </button><br>\
+                            <button class='btn-success' onclick='enviarEditar("+ elem.idcuento +")'>Editar</button>\
+                            <button class='btn-danger' onclick='eliminarCuento("+elem.idcuento+")'>Eliminar</button>\
+                    </div></div>");
+                },
+                //si ha ocurrido un error
+                error: function () {
+                    console.log("error");
+
+                }
+            });
+        
+    });
+            
         },
         //si ha ocurrido un error
         error: function () {
@@ -910,47 +998,9 @@ function leerCuento() {
         }
     });
     
-    
-    
-    alert("Disfruta de todos los cuentos!" + datos);
-   
-    //<img id='imghome' src='" + elem.pagina[0].imagen + "' alt=''>\
-    $.each(datos, function (index, elem) {
-        var img;
-        var datosidcuento=elem.idcuento;
-     
-        $.ajax({
-            url: '/listarImg',
-            type: 'POST',
-            data: elem,
-            cache: false,
-          
-            success: function (data) {
 
-                //console.log(data);
-                img=data[0].imagen;
-                
-                 $("#ListaCuento").append("<div class='col-md-4 portfolio-item'>\
-                <div id='idh5'>\
-                        <button id='btnLista' onclick='enviar("+ elem.idcuento +")'>\
-                        <h3 id='idh3'>" + elem.nombre + "</h3>\
-                        <img id='imghome' src='" + img + "' alt=''>\
-                        <p>" + elem.descripcion + "</p>\
-                        </button><br>\
-                        <button class='btn-success' onclick='enviarEditar("+ elem.idcuento +")'>Editar</button>\
-                        <button class='btn-danger' onclick='eliminarCuento("+elem.idcuento+")'>Eliminar</button>\
-                </div></div>");
-            },
-            //si ha ocurrido un error
-            error: function () {
-                console.log("error");
-
-            }
-        });
-        
-    });
   
-};
+    });
 
 
 /* EDITAR CUENTO LALALA*/

@@ -29,6 +29,20 @@
     <br><br><br><br><br><br><br><br><br><br>
     <h1 class="cuentoTituloLista">¡Elige un cuento!</h1>
     <br><br><br>
+    
+      
+
+    <div class="selectorusuario">
+                <span class="spanSelect">Usuario: </span>
+                    <select id="usuarioop">
+    
+                        
+                        
+                    </select>
+          
+        </div> <br>
+    
+    
     <div class="container" id="ListaCuento">
          <div class="row">
          </div>

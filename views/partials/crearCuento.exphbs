@@ -36,6 +36,7 @@
         <br>
         <br> <br>
         <br>
+        
        <div class="selectorusuario">
                 <span class="spanSelect">Usuario: </span>
                     <select id="usuarioop">
@@ -45,6 +46,7 @@
                     </select>
           
         </div> <br>
+        
         <div class="nombreCuento">
             <input id="nombre" placeholder="Nombre del Cuento" />
             <input id="descripcion" placeholder="Descripcion" />
@@ -389,4 +391,3 @@
     <script src="js/main.js" type="text/javascript"></script>
 
 </body>
-
