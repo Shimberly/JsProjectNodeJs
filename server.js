@@ -247,7 +247,7 @@ app.post('/guardarCuento', (req, res) => {
             return console.error('could not connect to postgres', err);
             return res.status(500).json({success: false, data: err});
         }
-        client.query("INSERT INTO  cuento  (nombre ,  descripcion ,  creditos ,  idusuario) VALUES ('"+req.body.nombre+"', '"+req.body.descripcion+"', '"+req.body.credito+"', '"+req.body.idcuento+"');", function(err, result) {
+        client.query("INSERT INTO  cuento  (nombre ,  descripcion ,  creditos ,  idusuario) VALUES ('"+req.body.nombre+"', '"+req.body.descripcion+"', '"+req.body.credito+"', '"+req.body.idusuario+"');", function(err, result) {
             if(err) {
                 return console.error('error running query', err);
             }

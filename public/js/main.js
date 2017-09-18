@@ -23,7 +23,7 @@ class Cuento {
         //alert(obj.nombre);
         this.nombre = obj.nombre;
         this.descripcion = obj.descripcion;
-        this.usuario=obj.usuario;
+        this.idusuario=obj.idusuario;
         this.credito = obj.credito;
 
         var pregunta = [];
@@ -43,10 +43,10 @@ class Cuento {
         this.pagina = pagina;
 
     }
-    directo(nombre, descripcion, usuario, credito, img, aud) {
+    directo(nombre, descripcion, credito,idusuario, img, aud) {
         this.nombre = nombre;
         this.descripcion = descripcion;
-        this.usuario=usuario;
+        this.idusuario=idusuario;
         this.credito = credito;
 
         var pregunta = [];
@@ -196,17 +196,17 @@ $("#guardar").click(function () {
     //si todas las hojas estan llenas se puede guardar sino no
     if (flag == 0) {
 
-        var idusuario=$("#usuarioop").val();
-        
+       
+        var idusuario = $("#usuarioop option:selected").attr("value");
+     
         var cuento = new Cuento();
-        
         
         cuento.directo($("#nombre").val(), $("#descripcion").val(),  $("#credito").val(), idusuario,imagenesCuento, audiosCuento);
         cuento.pregunta=preguntas;
        
-        //alert("Se guardo el cuento " + cuento.nombre);
+        alert("Se guardo el cuento " + cuento.nombre + cuento.idusuario);
        
-    };
+  
         $.ajax({
             url: '/guardarCuento',
             type: 'POST',
@@ -284,7 +284,7 @@ $("#guardar").click(function () {
                 console.log("error pokemon");
             }
         });
-     
+       };
 });
 
 /*GUARDAR PREGUNTA EN JSON*/
@@ -1687,20 +1687,19 @@ function crearCuento(){
                console.log(data);
             
                datos=data;
-            
+                
+              
                $.each(datos, function (index, elem) {
                    
-               $("#usuarioop").append("<option value="+elem.idusuario+" selected='selected'>"+elem.nombre+"</option>");
+                    $("#usuarioop").append("<option value='"+elem.idusuario+"' selected='selected'>"+elem.nombre+"</option>");
                   
                });
-            
-           
+               
         },
         //si ha ocurrido un error
         error: function () {
             console.log("error");
-             alert("eror"); 
-           
+            
         }
     });
     
